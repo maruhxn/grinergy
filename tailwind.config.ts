@@ -19,6 +19,15 @@ const config: Config = {
       colors: {
         green: "rgba(0, 145, 145)",
       },
+      keyframes: {
+        blink: {
+          // @ts-ignore
+          "50%": { opacity: 0 },
+        },
+      },
+      animation: {
+        blink: "blink 1.5s step-end infinite",
+      },
       fontFamily: {
         kr: ["var(--font-kr)"],
         en: ["var(--font-en)"],

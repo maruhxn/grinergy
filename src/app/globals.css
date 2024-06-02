@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .contact-row-left-span {
+    @apply text-[13pt] lg:text-[1.4vw] font-en font-bold tracking-normal mb-[2.5px] lg:mb-[1vh];
+  }
+  .contact-row-right-span {
+    @apply text-[10.5pt] lg:text-[1.25vw] mb-[2.5px] lg:mb-[1vh] font-kr font-medium tracking-[-0.03em];
+  }
+  .contact-row-en-span {
+    @apply text-[13pt] lg:text-[1.4vw] font-en font-normal tracking-normal;
+  }
+}

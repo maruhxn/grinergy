@@ -2,5 +2,13 @@
   "Home": {
     "title": "Environment, Innovation, Energy\nand Grinergy\nfor the Green Future",
     "mobile-title": "Environment\nInnovation, Energy\nand Grinergy\nfor the Green Future"
+  },
+  "Contact": {
+    "first": {
+      "row1": "205-27, Gasan Digital 1-ro,",
+      "row2": "Gasan Al tower 402",
+      "email": "info@grinergy.tech",
+      "tel": "+82. 2. 587.7127"
+    }
   }
 }
