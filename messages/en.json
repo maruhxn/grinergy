@@ -3,6 +3,144 @@
     "title": "Environment, Innovation, Energy\nand Grinergy\nfor the Green Future",
     "mobile-title": "Environment\nInnovation, Energy\nand Grinergy\nfor the Green Future"
   },
+  "History": {
+    "phrase": "Innovation\nand development\nfor change",
+    "mobile-phrase": "Innovation and\ndevelopment for change",
+    "small-phrase": "Green steps for humanity and the environment",
+    "y2017": {
+      "title": "GRINERGY opens the door",
+      "achivement": {
+        "FEB": "Established GRINERGY co., ltd",
+        "MAR-1": "Established U.S corporation(boston)",
+        "MAR-2": "1st investment(cosine individual\ninvestment association)",
+        "APR": "Korean venture company certification",
+        "JUL": "1st prototype production/evaluation",
+        "AUG": "Kirst domestic/PCT patent application\n(lithium secondary battery)",
+        "SEP": "Second prototype production/evaluation"
+      },
+      "mobile-achivement": {
+        "FEB": "Established GRINERGY co., ltd",
+        "MAR-1": "Established U.S corporation(boston)",
+        "MAR-2": "1st investment(cosine individual\ninvestment association)",
+        "APR": "Korean venture company\ncertification",
+        "JUL": "1st prototype production/\nevaluation",
+        "AUG": "Kirst domestic/\nPCT patent application\n(lithium secondary battery)",
+        "SEP": "Second prototype production/\nevaluation"
+      }
+    },
+    "y2018": {
+      "title": "GRINERGY prepares to leap into the world",
+      "achivement": {
+        "JUN": "Domestic/PCT patent application\n(gel-type polyelectrolyte)",
+        "JUL": "Established guro prototype line",
+        "AUG": "Development service contract secured",
+        "SEP": "Domestic/PCT patent application\n(solid polymer electrolyte)",
+        "OCT": "Secondary investment(via crowdfunding)",
+        "NOV": "Domestic/PCT patent application\n(lithium metal anode)",
+        "DEC": "Domestic patent registration\n(lithium secondary battery)"
+      },
+      "mobile-achivement": {
+        "JUN": "Domestic/PCT patent application\n(gel-type polyelectrolyte)",
+        "JUL": "Established guro prototype line",
+        "AUG": "Development service\ncontract secured",
+        "SEP": "Domestic/PCT patent application\n(solid polymer electrolyte)",
+        "OCT": "Secondary investment\n(via crowdfunding)",
+        "NOV": "Domestic/PCT patent application\n(lithium metal anode)",
+        "DEC": "Domestic patent registration\n(lithium secondary battery)"
+      }
+    },
+    "y2019": {
+      "title": "GRINERGY makes a strong move towards the future",
+      "achivement": {
+        "MAR": "Capital increase(korea angel investment)",
+        "APR": "Selected as a korean defense\nventure support project",
+        "JUN-1": "Selected for first penguin company\nby korea credit guarantee fund",
+        "JUN-2": "PCT application\n(polymer electrolyte membrane)",
+        "JUL": "TIPS selection",
+        "OCT": "PCT patent application\n(composite solid polymer electrolyte &\nmetal lithium anode structure)"
+      },
+      "mobile-achivement": {
+        "MAR": "Capital increase\n(korea angel investment)",
+        "APR": "Selected as a korean defense\nventure support project",
+        "JUN-1": "Selected for first penguin company\nby korea credit guarantee fund",
+        "JUN-2": "PCT application\n(polymer electrolyte membrane)",
+        "JUL": "TIPS selection",
+        "OCT": "PCT patent application\n(composite solid polymer electrolyte\n& metal lithium anode structure)"
+      }
+    },
+    "y2020": {
+      "title": "GRINERGY, Innovation",
+      "achivement": {
+        "JAN": "10Ah cell mass production certification",
+        "APR": "Selected as R&D project by the ministry\nof trade, industry and energy",
+        "MAY": "Production relocated to chungju,\nsouth korea",
+        "JUN-1": "Domestic patent registration\n(solid polymer electrolyte)",
+        "JUN-2": "Domestic patent registration\n(gel-type polymer electrolyte)",
+        "SEP-1": "Domestic patent application(busbar design)",
+        "SEP-2": "Domestic/PCT patent application\n(improving cell life characteristics)",
+        "OCT": "Domestic/PCT patent application\n(solid polymer electrolyte)"
+      },
+      "mobile-achivement": {
+        "JAN": "10Ah cell mass production\ncertification",
+        "APR": "Selected as R&D project\nby the ministry of trade,\nindustry and energy",
+        "MAY": "Production relocated to chungju,\nsouth korea",
+        "JUN-1": "Domestic patent registration\n(solid polymer electrolyte)",
+        "JUN-2": "Domestic patent registration\n(gel-type polymer electrolyte)",
+        "SEP-1": "Domestic patent application\n(busbar design)",
+        "SEP-2": "Domestic/PCT patent application\n(improving cell life characteristics)",
+        "OCT": "Domestic/PCT patent application\n(solid polymer electrolyte)"
+      }
+    },
+    "y2021": {
+      "title": "GRINERGY's innovation opens the future",
+      "achivement": {
+        "JAN": "Domestic patent registration\n(polymer electrolyte membrane)",
+        "FEB": "Battery pack contract for mass production\nof luminescent signs",
+        "MAR": "Battery pack contract for RV",
+        "APR": "Series A investment",
+        "SEP": "Contract for mass production\nof luminescent signs",
+        "OCT-1": "Battery pack contract for service robots",
+        "OCT-2": "Mass production of battery packs\nfor camping RV",
+        "OCT-3": "Started development of vehicle starter battery\nfor ministry of national defense",
+        "OCT-4": "Started development of KORAIL power supply\nbattery(ministry of science and technology)",
+        "NOV-1": "Completed series A investment",
+        "NOV-2": "Air force power battery packs approved\nby korean ministry of defense department",
+        "DEC": "All-solid-state battery electrode fabrication"
+      },
+      "mobile-achivement": {
+        "JAN": "Domestic patent registration\n(polymer electrolyte membrane)",
+        "FEB": "Battery pack contract for mass\nproduction of luminescent signs",
+        "MAR": "Battery pack contract for RV",
+        "APR": "Series A investment",
+        "SEP": "Contract for mass production\nof luminescent signs",
+        "OCT-1": "Battery pack contract\nfor service robots",
+        "OCT-2": "Mass production of battery packs\nfor camping RV",
+        "OCT-3": "Started development\nof vehicle starter battery\nfor ministry of national defense",
+        "OCT-4": "Started development\nof KORAIL power supply battery\n(ministry of science and technology)",
+        "NOV-1": "Completed series A investment",
+        "NOV-2": "Air force power battery packs\napproved by korean ministry\nof defense department",
+        "DEC": "All-solid-state battery\nelectrode fabrication"
+      }
+    },
+    "y2022": {
+      "title": "GRINERGY moves into the world market",
+      "achivement": {
+        "FEB": "Proof of concept(POC) with US service\nrobot company",
+        "MAR": "Completion of demonstration evaluation\nof starter batteries for korean national\ndefense selected as an excellent commercial\nproduct by ROK DoD procurement",
+        "MAY": "Begin to develop with korean DoD\nwith battery packs for unmanned tactical\nvehicles and remote control weapon\nsystem power supply",
+        "AUG": "Chungju plant production expansion"
+      },
+      "mobile-achivement": {
+        "FEB": "Proof of concept(POC)\nwith US service robot company",
+        "MAR": "Completion of demonstration\nevaluation of starter batteries\nfor korean national defense selected\nas an excellent commercial product\nby ROK DoD procurement",
+        "MAY": "Begin to develop with korean DoD\nwith battery packs for unmanned\ntactical vehicles and remote control\nweapon system power supply",
+        "AUG": "Chungju plant production expansion"
+      }
+    },
+    "y2023": {
+      "title": "CES Innovation Award winner"
+    }
+  },
   "Contact": {
     "first": {
       "row1": "205-27, Gasan Digital 1-ro,",
