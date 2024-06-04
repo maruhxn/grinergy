@@ -34,9 +34,9 @@ export default function Header() {
   }, [isMobile, isOpen]);
 
   useEffect(() => {
-    setIsOpen(isOpen ? false : isOpen);
-    if (pathname !== "/about/ourstory" && pathname !== "/about/history") {
-      setIsSubVisible(isSubVisible ? false : isSubVisible);
+    setIsOpen(false);
+    if (["/about/ourstory", "/about/history"].includes(pathname)) {
+      setIsSubVisible(true);
     }
   }, [pathname]);
 
@@ -71,7 +71,7 @@ export default function Header() {
                     <li
                       className={cn(
                         menuItemCss,
-                        pathname === menuItem.link && "text-black",
+                        pathname === menuItem.link && "text-black/50",
                         "absolute top-[7.5vh] left-[43%] [&:nth-child(3)]:left-[53.5%]"
                       )}
                       key={idx}
@@ -84,7 +84,7 @@ export default function Header() {
                   <li
                     className={cn(
                       menuItemCss,
-                      pathname === menuItem.link && "text-black"
+                      pathname === menuItem.link && "text-black/50"
                     )}
                     key={idx}
                     onClick={() => setIsSubVisible(!isSubVisible)}
@@ -95,7 +95,7 @@ export default function Header() {
                   <li
                     className={cn(
                       menuItemCss,
-                      pathname === menuItem.link && "text-black"
+                      pathname === menuItem.link && "text-black/50"
                     )}
                     key={idx}
                     onClick={() => router.push(menuItem.link)}

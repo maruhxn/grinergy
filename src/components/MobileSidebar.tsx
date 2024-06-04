@@ -17,7 +17,8 @@ export default function MobileSidebar({
 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
-  const itemCss = "w-full text-center tracking-[-0.018em] text-black";
+  const itemCss =
+    "w-full text-center tracking-[-0.018em] text-black cursor-pointer";
   return (
     <ul className="fixed top-0 left-0 z-50 flex flex-col justify-center items-center w-full h-screen bg-white overflow-y-scroll font-en gap-[15px] text-[30px] md:gap-[25px] md:text-[40px]">
       {headerMenuList.map((menuItem, idx) =>
@@ -27,7 +28,7 @@ export default function MobileSidebar({
               className={cn(
                 itemCss,
                 pathname === menuItem.link && "text-black/50",
-                "text-[23px] lg:text-[33px]"
+                "text-[23px] md:text-[33px]"
               )}
               key={idx}
               onClick={() => router.push(menuItem.link)}
