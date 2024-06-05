@@ -49,7 +49,7 @@ export default function Header() {
           setIsSubVisible={setIsSubVisible}
         />
       )}
-      <nav className="h-[7.5vh] pr-[23px] pl-[18px] bg-white fixed top-0 z-10 flex justify-between items-center lg:px-[3.854vw] w-full lg:h-[10vh]">
+      <nav className="h-[7.5vh] pr-[23px] pl-[18px] bg-white fixed top-0 z-20 flex justify-between items-center lg:px-[3.854vw] w-full lg:h-[10vh]">
         <div className="w-1/3">
           <img
             src="/images/header_logo.png"
