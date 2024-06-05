@@ -27,7 +27,7 @@ export default function RoadMap({ isEng }: { isEng: boolean }) {
           <div
             className={cn(
               circleCss,
-              "size-[30vw] lg:size-[14.4vw] text-[7.5pt] md:text-[10.5pt] lg:text-[1.382vw] mx-auto tracking-[-0.05em] text-green bg-white",
+              "size-[30vw] lg:size-[14.4vw] text-[7.5pt] md:text-[10.5pt] lg:text-[1.302vw] mx-auto tracking-[-0.05em] text-green bg-white",
               isEng ? "font-en" : "font-kr"
             )}
           >
@@ -56,7 +56,7 @@ export default function RoadMap({ isEng }: { isEng: boolean }) {
                 )}
                 key={idx}
               >
-                {Parser(value[1])}
+                {isEng ? value[1] : value[0]}
               </div>
             )
           )}
