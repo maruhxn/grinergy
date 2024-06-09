@@ -4,24 +4,21 @@ import useIsMobile from "@/hooks/useIsMobile";
 import { cn } from "@/libs/utils";
 import { useTranslations } from "next-intl";
 
-interface OurstoryPargraphProps {
+interface PargraphProps {
+  at: "Ourstory" | "Product";
   idx: number;
   isEng: boolean;
   className?: string;
 }
 
-export default function OurstoryPargraph({
-  idx,
-  isEng,
-  className,
-}: OurstoryPargraphProps) {
+export default function Pargraph({ at, idx, isEng, className }: PargraphProps) {
   const isMobile = useIsMobile();
-  const t = useTranslations("Ourstory");
+  const t = useTranslations(at);
   return (
     <div
       className={cn(
-        "text-[12px] md:w-screen md:my-[8vh] lg:text-[1.09375vw] lg:w-fit lg:mx-auto lg:mt-[17.592vh] lg:mb-[17.592vh] lg:pl-0",
-        isEng ? "md:pl-[18vw] md:text-[17px]" : "md:pl-[16vw] md:text-[15px]",
+        "text-[12px] w-screen md:w-screen my-[8vh] lg:text-[1.09375vw] lg:w-fit lg:mx-auto lg:mt-[17.592vh] lg:mb-[17.592vh] lg:pl-0",
+        isEng ? "pl-[18vw] sm:text-[17px]" : "pl-[16vw] sm:text-[15px]",
         className
       )}
     >
@@ -37,7 +34,7 @@ export default function OurstoryPargraph({
       </h3>
       <p
         className={cn(
-          "text-black/95 whitespace-pre-wrap leading-[18px] md:leading-[22px]",
+          "text-black/95 whitespace-pre-wrap leading-[22px] md:leading-[22px]",
           isEng
             ? "font-en lg:leading-[1.6vw]"
             : "font-kr tracking-[-0.05em] lg:leading-[1.8229vw]"

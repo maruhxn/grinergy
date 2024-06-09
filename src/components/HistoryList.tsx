@@ -73,7 +73,7 @@ export default function HistoryList({ isEng }: { isEng: boolean }) {
         >
           <h3
             className={cn(
-              "text-[1rem] md:text-[1.4rem] lg:text-[2.1875vw] md:mb-[2px] tracking-[0.038em] text-black/95 font-en font-bold",
+              "text-[1rem] sm:text-[1.4rem] lg:text-[2.1875vw] sm:mb-[2px] tracking-[0.038em] text-black/95 font-en font-bold",
               isEng && "lg:mb-[-5px]"
             )}
           >
@@ -81,7 +81,7 @@ export default function HistoryList({ isEng }: { isEng: boolean }) {
           </h3>
           <h4
             className={cn(
-              "font-bold font-kr text-green text-center whitespace-pre-wrap text-[0.7rem] mb-[1.2rem] md:text-[14px] md:mb-[15px] lg:text-[1.09375vw] lg:mb-[40px]",
+              "font-bold font-kr text-green text-center whitespace-pre-wrap text-[0.7rem] mb-[1.2rem] sm:text-[14px] sm:mb-[15px] lg:text-[1.09375vw] lg:mb-[40px]",
               isEng && "font-en lg:mb-[30px]",
               year === 2023 && "!mb-0"
             )}
@@ -90,7 +90,7 @@ export default function HistoryList({ isEng }: { isEng: boolean }) {
           </h4>
           <ul
             className={cn(
-              "text-[10px] md:text-[13px] lg:text-[1.09375vw] w-full text-black/95 flex flex-col justify-between tracking-[-0.05em] font-kr ml-[10%]",
+              "text-[10px] sm:text-[13px] lg:text-[1.09375vw] w-full text-black/95 flex flex-col justify-between tracking-[-0.05em] font-kr ml-[10%]",
               isEng && "tracking-normal font-en ml-0"
             )}
           >

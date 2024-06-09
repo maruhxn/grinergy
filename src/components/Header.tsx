@@ -54,7 +54,7 @@ export default function Header() {
           <img
             src="/images/header_logo.png"
             alt="grinergy logo"
-            className="flex items-center relative -top-[6px] cursor-pointer w-[100px] sm:w-[145px] sm:static lg:relative lg:w-[9.15625vw]"
+            className="flex items-center relative -top-[6px] cursor-pointer max-w-[100px] sm:max-w-[145px] w-[100px] sm:w-[145px] sm:static lg:relative lg:max-w-none lg:w-[9.15625vw]"
             onClick={() => router.push("/")}
           />
         </div>
@@ -117,7 +117,7 @@ export default function Header() {
           src="/images/hamburger.png"
           alt="메뉴 토글 버튼"
           onClick={() => setIsOpen(true)}
-          className="z-20 relative object-contain w-[23px] md:w-[30px] md:block lg:hidden"
+          className="z-20 relative object-contain w-[23px] sm:w-[30px] md:block lg:hidden"
         />
         {pathname === "/" && <FloatingLanguageBox />}
       </nav>

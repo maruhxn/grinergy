@@ -1,6 +1,6 @@
 import { cn } from "@/libs/utils";
 import Parser from "html-react-parser";
-import OurstoryPargraph from "./OurstoryPargraph";
+import Pargraph from "./Pargraph";
 
 const energyData = [
   ["그린 에너지", "Green energy"],
@@ -27,7 +27,7 @@ export default function RoadMap({ isEng }: { isEng: boolean }) {
           <div
             className={cn(
               circleCss,
-              "size-[30vw] lg:size-[14.4vw] text-[7.5pt] md:text-[10.5pt] lg:text-[1.302vw] mx-auto tracking-[-0.05em] text-green bg-white",
+              "size-[30vw] lg:size-[14.4vw] text-[7.5pt] sm:text-[10.5pt] lg:text-[1.302vw] mx-auto tracking-[-0.05em] text-green bg-white",
               isEng ? "font-en" : "font-kr"
             )}
           >
@@ -41,7 +41,7 @@ export default function RoadMap({ isEng }: { isEng: boolean }) {
               <div
                 className={cn(
                   circleCss,
-                  "size-[27vw] lg:size-[11.4vw] text-black/60 bg-white text-[8pt] md:text-[11pt] lg:text-[1.35vw] font-en font-normal [&_strong]:text-green [&_strong]:font-normal"
+                  "size-[27vw] lg:size-[11.4vw] text-black/60 bg-white text-[8pt] sm:text-[11pt] lg:text-[1.35vw] font-en font-normal [&_strong]:text-green [&_strong]:font-normal"
                 )}
                 key={idx}
               >
@@ -51,7 +51,7 @@ export default function RoadMap({ isEng }: { isEng: boolean }) {
               <div
                 className={cn(
                   circleCss,
-                  "size-[27vw] lg:size-[11.4vw] bg-transparent border-[0.75px] lg:border-[0.5px] border-white text-white tracking-[-0.05em] text-[7pt] md:text-[10pt] lg:text-[1.15vw] font-normal",
+                  "size-[27vw] lg:size-[11.4vw] bg-transparent border-[0.75px] lg:border-[0.5px] border-white text-white tracking-[-0.05em] text-[7pt] sm:text-[10pt] lg:text-[1.15vw] font-normal",
                   isEng ? "font-en" : "font-kr"
                 )}
                 key={idx}
@@ -88,10 +88,11 @@ export default function RoadMap({ isEng }: { isEng: boolean }) {
           />
         </div>
       </div>
-      <OurstoryPargraph
+      <Pargraph
+        at="Ourstory"
         idx={5}
         isEng={isEng}
-        className="md:mb-0 lg:mb-0 [&_h3]:text-white [&_p]:text-white"
+        className="mb-0 lg:mb-0 [&_h3]:text-white [&_p]:text-white"
       />
     </section>
   );

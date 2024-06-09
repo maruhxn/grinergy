@@ -30,7 +30,7 @@ export default function HistoryAchievementItem({
           >
             <span
               className={cn(
-                "text-[10px] md:text-[12px] lg:text-[0.9vw] whitespace-nowrap mr-[4.395%] w-[30px]",
+                "text-[10px] sm:text-[12px] lg:text-[0.9vw] whitespace-nowrap mr-[4.395%] w-[30px]",
                 isEng ? "text-black/60" : "text-black"
               )}
             >

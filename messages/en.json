@@ -43,6 +43,79 @@
       "mobile-text": "GREENY, which loves people and\nthe environment, is a symbol of\nGRINERGY with a bright smile.\nIt is a character with a strong sense\nof justice that helps people's\nconvenience with excellent power\nembodying a battery as a motif."
     }
   },
+  "Product": {
+    "phrase": "Green energy\ninnovation for future",
+    "mobile-phrase": "Green energy\ninnovation for future",
+    "paragrah-1": {
+      "title": "POTERE, overcome the limitation of current lithium battery",
+      "text": "The POTERE battery has greatly improved performance and stability compared to existing\nlithium batteries through GRINERGY’s technology and solved the environmental pollution\nproblem of lead-acid batteries.",
+      "mobile-title": "POTERE, overcome the limitation\nof current lithium battery",
+      "mobile-text": "The POTERE battery has greatly\nimproved performance and stability\ncompared to existing lithium batteries\nthrough GRINERGY’s technology and\nsolved the environmental pollution\nproblem of lead-acid batteries."
+    },
+    "paragrah-2": {
+      "title": "The reason why GRINERGY is in the spotlight",
+      "text": "GRINERGY’s 4 core technologies are attracting worldwide attention.",
+      "mobile-title": "The reason why\nGRINERGY is in the spotlight",
+      "mobile-text": "GRINERGY’s 4 core technologies are\nattracting worldwide attention."
+    },
+    "paragrah-3": {
+      "title": "GRINERGY product line",
+      "text": "GRINERGY is a company specializing in lithium-ion rechargeable batteries.\nStability, low-temperature performance, extended lifespan,and fast charging\nability are the key consideration of GRINERGY.",
+      "mobile-title": "GRINERGY product line",
+      "mobile-text": "GRINERGY is a company specializing\nin lithium-ion rechargeable batteries.\nStability, low-temperature performance,\nextended lifespan, and fast charging\nability are the key consideration\nof GRINERGY."
+    },
+    "circle": {
+      "center": "Advantages\nof secondary battery\nLTO technology",
+      "icon1": "Extended\nlifespan",
+      "icon2": "Low-temperature\ncharging",
+      "icon3": "Explosive\nstability",
+      "icon4": "Outstanding\nfast charging\nperformance"
+    },
+    "graph": {
+      "span1": "Graphite anode material",
+      "span2": "lithium polymer battery",
+      "span3": "Lithium titanate\nnegative electrode material",
+      "span4": "LTO battery",
+      "span5": "POTERE battery",
+      "circle1": "Voltage 3.3v~3.7v",
+      "circle2": "Life span\n1,000-3,000\ncharging and discharging",
+      "mobile-circle2": "Life span\n1,000-3,000\ncharging and\ndischarging",
+      "circle3": "Charging speed 1c\nOperating temperature 0~40°c\nOutput performance 3c",
+      "mobile-circle3": "Charging speed 1c\nOperating temperature:\n0~40°c\nOutput performance: 3c",
+      "circle4": "Explosion and fire hazard",
+      "mobile-circle4": "Explosion\nnd fire hazard",
+      "circle5": "Voltage 2.4v",
+      "circle6": "Life span\n10,000-15,000\ncharging and discharging",
+      "mobile-circle6": "Life span\n10,000-15,000\ncharging and\ndischarging",
+      "circle7": "Charging speed 10c\nOperating temperature -30~50°c\nOutput performance up to 20c",
+      "mobile-circle7": "Charging speed 10c\nOperating temperature:\n-30~50°c\nOutput performance: 20c",
+      "circle8": "No explosion and fire hazard",
+      "mobile-circle8": "No explosion\nand fire hazard"
+    },
+    "info": {
+      "title": "Advantages of\nsecondary battery LTO technology",
+      "item1": {
+        "tag": "Explosive stability",
+        "text": "GRINERGY’s POTERE battery procured stability which\nis the most important factor of a battery. Unlike other\nlithium-ion batteries that are exposed to explosion and\nfire hazards, POTERE battery does not have the risk of\nexplosion under 400°c or higher temperature.",
+        "mobile-text": "GRINERGY’s POTERE battery procured stability which is the most important factor of a battery. Unlike other lithium-ion batteries that are exposed to explosion and fire hazards, POTERE battery does not have the risk of explosion under 400°c or higher temperature."
+      },
+      "item2": {
+        "tag": "Outstanding\nfast charging performance",
+        "text": "Explosive fast charging performance is a key\nessential factor of a battery.\nPOTERE battery’s fast charging performance is 10c\nwhich performs three times higher charging speed\ncompared to other lithium polymer batteries.",
+        "mobile-text": "Explosive fast charging performance is a key essential factor of a battery. POTERE battery’s fast charging performance is 10c which performs three times higher charging speed compared to other lithium polymer batteries."
+      },
+      "item3": {
+        "tag": "Low-temperature\ncharging",
+        "text": "POTERE battery has outstanding charging\nperformance which is 10 times faster compared\nto other lithium polymer batteries. Furthermore,\nthe POTERE battery can be charged under\nany circumstances. POTERE battery provides\noutstanding charging performance even at a low\ntemperature of -35°c.",
+        "mobile-text": "POTERE battery has outstanding charging performance which is 10 times faster compared to other lithium polymer batteries. Furthermore, the POTERE battery can be charged under any circumstances. POTERE battery provides outstanding charging performance even at a low temperature of -35°c."
+      },
+      "item4": {
+        "tag": "Extended lifespan",
+        "text": "No matter how outstanding the performance is,\nlifespan is an essential factor to consider.\nPOTERE battery backs up its outstanding\nperformance and efficiency through its extended\nlifespan of 5-7x.",
+        "mobile-text": "No matter how outstanding the performance is, lifespan is an essential factor to consider. POTERE battery backs up its outstanding performance and efficiency through its extended lifespan of 5-7x."
+      }
+    }
+  },
   "History": {
     "phrase": "Innovation\nand development\nfor change",
     "mobile-phrase": "Innovation and\ndevelopment for change",

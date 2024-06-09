@@ -16,8 +16,10 @@ export default function BigPhrase({ at, isEng, className }: BigPhraseProps) {
   return (
     <h1
       className={cn(
-        "w-fit tracking-[-0.03em] text-left font-kr mx-auto mb-[7px] lg:mb-[2.2407vh] text-[8.6vw] leading-[22px] md:leading-[5vw] pt-[3vh] lg:pt-[12.623vh] whitespace-pre-wrap lg:ml-[31vw] lg:text-[5vw]",
-        isEng && "tracking-[-0.01em] font-en md:leading-[5vw] lg:text-[6vw]",
+        "w-fit text-left mx-auto mb-[7px] lg:mb-[2.2407vh] text-[8.6vw] leading-[22px] pt-[3vh] lg:pt-[12.623vh] whitespace-pre-wrap lg:ml-[31vw] sm:leading-[36px] md:leading-[5vw]",
+        isEng
+          ? "tracking-[-0.01em] font-en lg:text-[6vw]"
+          : "tracking-[-0.03em] font-kr lg:text-[5vw]",
         className
       )}
     >
