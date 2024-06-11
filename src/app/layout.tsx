@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { Twitter } from "next/dist/lib/metadata/types/twitter-types";
 import localFont from "next/font/local";
+import "react-quill/dist/quill.snow.css";
 import "./globals.css";
 
 const krFont = localFont({
