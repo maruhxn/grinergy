@@ -1,5 +1,5 @@
+import { getIsAdmin } from "@/app/actions";
 import AdminClientLayout from "@/components/AdminClientLayout";
-import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -13,16 +13,9 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }>) {
   const token = cookies().get("token")?.value;
-  if (!token) {
-    redirect("/admin/login");
-  }
+  const isAdmin = await getIsAdmin();
 
-  const payload = jwt.verify(
-    token,
-    process.env.COOKIE_SECRET as string
-  ) as Payload;
-
-  if (!payload.ok) {
+  if (!isAdmin) {
     redirect("/admin/login");
   }
 

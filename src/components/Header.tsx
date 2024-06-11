@@ -20,7 +20,7 @@ export const headerMenuList = [
   { link: "/contact", title: "Contact" },
 ];
 
-export default function Header() {
+export default function Header({ isAdmin }: { isAdmin: boolean }) {
   const menuItemCss =
     "text-[45px] tracking-[-0.018em] lg:tracking-normal mb-[25px] lg:mb-0 text-center w-full lg:w-auto hover:text-black/50 hover:no-underline lg:text-[1.1458vw] font-en cursor-pointer z-20 lg:hover:underline";
   const router = useRouter();
@@ -108,7 +108,14 @@ export default function Header() {
         </div>
 
         <div className="w-1/3 flex justify-end">
-          {/* Admin Page Button */}
+          {isAdmin && (
+            <button
+              onClick={() => router.push("/admin")}
+              className="px-[5px] text-[10px] sm:py-[10px] sm:px-[20px] lg:py-[2.5px] lg:px-[15px] xl:py-[5px] xl:px-[20px] border-[1px] border-black outline-none mr-[10px] bg-white font-en text-black transition-all duration-500 hover:bg-black hover:text-white"
+            >
+              <span className="relative bottom-[-2px]">Admin Page</span>
+            </button>
+          )}
           {pathname === "/" && <LanguageBox />}
         </div>
 
