@@ -57,15 +57,9 @@ export default async function NoticePage({
       <h1 className="text-[13.2vw] mb-[2.63vh] lg:text-[6.25vw] lg:mb-[10vh] text-center tracking-[-0.015em] font-en">
         Notice
       </h1>
-      {data ? (
-        <>
-          <PageInfoSection currPage={currPage} total={totalCount} />
-          <Table posts={data} />
-          <Pagination currPage={currPage} totalPages={totalPages} />
-        </>
-      ) : (
-        "No Data"
-      )}
+      <PageInfoSection currPage={currPage} total={totalCount} />
+      <Table posts={data} />
+      <Pagination currPage={currPage} totalPages={totalPages} />
     </div>
   );
 }

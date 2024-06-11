@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Twitter } from "next/dist/lib/metadata/types/twitter-types";
 import localFont from "next/font/local";
+import { Toaster } from "react-hot-toast";
 import "react-quill/dist/quill.snow.css";
 import "./globals.css";
 
@@ -82,6 +83,7 @@ export default async function RootLayout({
         `}
       >
         {children}
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
