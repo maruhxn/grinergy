@@ -1,10 +1,6 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Providers from "@/components/Providers";
 import SEO from "@/components/SEO";
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { Twitter } from "next/dist/lib/metadata/types/twitter-types";
 import localFont from "next/font/local";
 import "react-quill/dist/quill.snow.css";
@@ -73,7 +69,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
     <html lang={locale}>
@@ -86,13 +81,7 @@ export default async function RootLayout({
           text-black leading-[1.2] bg-white
         `}
       >
-        <div className="overflow-hidden min-h-screen h-full relative">
-          <NextIntlClientProvider messages={messages}>
-            <Header />
-            <Providers>{children}</Providers>
-            <Footer />
-          </NextIntlClientProvider>
-        </div>
+        {children}
       </body>
     </html>
   );

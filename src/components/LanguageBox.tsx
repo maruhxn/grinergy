@@ -1,6 +1,6 @@
 "use client";
 
-import { toEn, toKo } from "@/app/(home)/actions";
+import { toEn, toKo } from "@/app/(client)/(home)/actions";
 
 export default function LanguageBox() {
   return (

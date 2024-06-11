@@ -1,6 +1,6 @@
 "use client";
 
-import { Notices } from "@/app/notice/page";
+import { Notices } from "@/app/(client)/notice/page";
 import moment from "moment";
 
 export default function Table({ posts }: { posts: Notices }) {

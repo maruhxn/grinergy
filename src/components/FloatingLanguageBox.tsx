@@ -1,6 +1,6 @@
 "use client";
 
-import { toEn, toKo } from "@/app/(home)/actions";
+import { toEn, toKo } from "@/app/(client)/(home)/actions";
 import { cn } from "@/libs/utils";
 
 export default function FloatingLanguageBox() {

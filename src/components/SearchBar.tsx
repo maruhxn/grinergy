@@ -1,6 +1,6 @@
 "use client";
 
-import { search } from "@/app/actions";
+import { search } from "@/app/(client)/actions";
 import { usePathname } from "next/navigation";
 
 export default function SearchBar() {
