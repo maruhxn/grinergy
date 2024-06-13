@@ -23,6 +23,28 @@
   }
 }
 
+/* Font */
+@font-face {
+  font-family: "NotoSansKR-Bold";
+  src: url("/fonts/NotoSansKR-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: "NotoSansKR-Medium";
+  src: url("/fonts/NotoSansKR-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "NotoSansKR-Regular";
+  src: url("/fonts/NotoSansKR-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "UniversLTPro-BoldCond";
+  src: url("/fonts/UniversLTPro-BoldCond.otf") format("opentype");
+}
+@font-face {
+  font-family: "UniversLTPro-Condensed";
+  src: url("/fonts/UniversLTPro-Condensed.otf") format("opentype");
+}
+
 /* Quill */
 @media screen and (max-width: 652px) {
   .quill .ql-editor * {
@@ -100,18 +122,27 @@
 }
 
 /* Set content font-families */
+.ql-font-NotoSansKR-Regular,
 .quill .ql-editor .ql-font-NotoSansKR-Regular {
   font-family: "NotoSansKR-Regular";
 }
+
+.ql-font-NotoSansKR-Medium,
 .quill .ql-editor .ql-font-NotoSansKR-Medium {
   font-family: "NotoSansKR-Medium";
 }
+
+.ql-font-NotoSansKR-Bold,
 .quill .ql-editor .ql-font-NotoSansKR-Bold {
   font-family: "NotoSansKR-Bold";
 }
+
+.ql-font-UniversLTPro-BoldCond,
 .quill .ql-editor .ql-font-UniversLTPro-BoldCond {
   font-family: "UniversLTPro-BoldCond";
 }
+
+.ql-font-UniversLTPro-Condensed,
 .quill .ql-editor .ql-font-UniversLTPro-Condensed {
   font-family: "UniversLTPro-Condensed";
 }

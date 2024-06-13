@@ -111,7 +111,7 @@ export default function Header({ isAdmin }: { isAdmin: boolean }) {
           {isAdmin && (
             <button
               onClick={() => router.push("/admin")}
-              className="px-[5px] text-[10px] sm:py-[10px] sm:px-[20px] lg:py-[2.5px] lg:px-[15px] xl:py-[5px] xl:px-[20px] border-[1px] border-black outline-none mr-[10px] bg-white font-en text-black transition-all duration-500 hover:bg-black hover:text-white"
+              className="px-[5px] text-[10px] lg:text-[13px] sm:py-[10px] sm:px-[20px] lg:py-[2.5px] lg:px-[15px] xl:py-[5px] xl:px-[20px] border-[1px] border-black outline-none mr-[10px] bg-white font-en text-black transition-all duration-500 hover:bg-black hover:text-white"
             >
               <span className="relative bottom-[-2px]">Admin Page</span>
             </button>

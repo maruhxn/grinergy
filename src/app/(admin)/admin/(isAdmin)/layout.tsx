@@ -20,7 +20,7 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="bg-black/20 opacity-80 w-full min-h-screen flex overflow-hidden h-screen lg:h-auto">
+    <div className="bg-black/20 opacity-80 w-full h-full min-h-screen flex lg:h-auto">
       <AdminClientLayout>{children}</AdminClientLayout>
     </div>
   );

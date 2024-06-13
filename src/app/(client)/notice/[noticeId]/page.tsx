@@ -1,3 +1,4 @@
+import FileDownload from "@/components/FileDownload";
 import db from "@/libs/db";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
@@ -70,15 +71,7 @@ export default async function NoticeDetailPage({
                     className="w-fit cursor-pointer text-[0.75rem] justify-between hover:underline"
                     key={i}
                   >
-                    <span
-                    //   onClick={() => downloadFile(file.filePath, file.fileName)}
-                    >
-                      {file.fileName.length > 20
-                        ? file.fileName.substring(0, 10) +
-                          "..." +
-                          file.fileName.substring(file.fileName.length - 10)
-                        : file.fileName}
-                    </span>
+                    <FileDownload file={file} />
                   </li>
                 ))}
               </ul>

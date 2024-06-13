@@ -30,11 +30,7 @@ export default async function NewsPage({
       title: true,
       contents: true,
       url: true,
-      file: {
-        select: {
-          filePath: true,
-        },
-      },
+      photo: true,
     },
     where: searchKeyword
       ? {
@@ -68,11 +64,15 @@ export default async function NewsPage({
           data.map((post) => (
             <a key={post.id} href={post.url} target="_blank" rel="noreferrer">
               <div className="flex flex-col w-full flex-1 font-kr">
-                <img
-                  className="w-full h-[220px] lg:h-[250px] object-cover object-center"
-                  src={`/${post.file?.filePath}`}
-                  alt={post.title}
-                />
+                {post.photo ? (
+                  <img
+                    className="w-full h-[220px] lg:h-[250px] object-cover object-center"
+                    src={post.photo}
+                    alt={post.title}
+                  />
+                ) : (
+                  "No Image"
+                )}
                 <span className="text-[17px] lg:text-[14px] mt=[15px] mb-[10px] text-black/85">
                   {post.title}
                 </span>

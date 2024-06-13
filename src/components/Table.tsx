@@ -2,8 +2,10 @@
 
 import { Notices } from "@/app/(client)/notice/page";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 
 export default function Table({ posts }: { posts: Notices }) {
+  const router = useRouter();
   return (
     <table className="table-fixed w-full text-[10px] lg:text-[0.9em] border-[1px] border-black/30 border-collapse overflow-hidden font-kr">
       <thead className="font-normal text-white bg-black/80">
@@ -21,7 +23,11 @@ export default function Table({ posts }: { posts: Notices }) {
       </thead>
       <tbody>
         {posts.map((post, idx) => (
-          <tr key={post.id} className="cursor-pointer">
+          <tr
+            key={post.id}
+            className="cursor-pointer"
+            onClick={() => router.push(`/notice/${post.id}`)}
+          >
             <td className="bg-white text-left w-[20%] align-middle py-[0.7em] px-[2em]">
               {idx + 1}
             </td>

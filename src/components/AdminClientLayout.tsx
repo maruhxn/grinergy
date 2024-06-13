@@ -15,7 +15,7 @@ export default function AdminClientLayout({
 
   useEffect(() => {
     if (!isMobile) setIsOpen(true);
-  }, [isMobile]);
+  }, [isOpen, isMobile]);
   return (
     <>
       <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -25,7 +25,7 @@ export default function AdminClientLayout({
           className="none lg:block absolute w-full h-screen bg-black/60 z-20"
         />
       )}
-      <div className="w-full min-h-screen p-[1rem] lg:pl-[16.625rem]">
+      <div className="w-full h-full min-h-screen p-[1rem] lg:pl-[16.625rem]">
         <BreadCrumb isOpen={isOpen} setIsOpen={setIsOpen} />
         {children}
       </div>

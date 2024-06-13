@@ -18,10 +18,9 @@ model News {
   title     String
   url       String
   contents  String
-  file      File?
+  photo     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  fileId    String?  @db.ObjectId
 }
 
 model Notice {
@@ -38,8 +37,6 @@ model File {
   fileName String @unique
   filePath String @unique
 
-  notice   Notice? @relation(fields: [noticeId], references: [id])
-  noticeId String? @db.ObjectId
-  news     News?   @relation(fields: [newsId], references: [id])
-  newsId   String? @unique @db.ObjectId
+  notice   Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+  noticeId String @db.ObjectId
 }

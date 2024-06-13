@@ -32,6 +32,7 @@ export default function SideBar({
       {isOpen && (
         <>
           <img
+            onClick={() => router.push("/")}
             className={cn(logoCss, "hidden w-[125px] lg:inline")}
             src="/images/header_logo.png"
             alt="로고"

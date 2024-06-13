@@ -59,22 +59,32 @@ export default function AdminTable({ type, data }: AdminTableProps) {
         {data.map((item: any) => {
           const contentsText = item.contents.replace(/<[^>]*>?/g, "");
           return (
-            <tr key={item.id} className="cursor-pointer">
-              <td className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] cursor-pointer hover:bg-black/10">
+            <tr key={item.id} className="cursor-pointer group">
+              <td
+                onClick={() => {
+                  type === "notice" && router.push(`/notice/${item.id}`);
+                }}
+                className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] group-hover:bg-black/10 break-words"
+              >
                 {item.title.length > 20
                   ? item.title.substring(0, 20) + "..."
                   : item.title}
               </td>
-              <td className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] cursor-pointer hover:bg-black/10">
+              <td
+                onClick={() => {
+                  type === "notice" && router.push(`/notice/${item.id}`);
+                }}
+                className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] group-hover:bg-black/10 break-words"
+              >
                 {contentsText.length > 30
                   ? contentsText.substring(0, 30) + "..."
                   : contentsText}
               </td>
-              <td className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em]">
+              <td className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] group-hover:bg-black/10 break-words">
                 {moment(item.createdAt).format("YYYY-MM-DD")}
               </td>
               <td
-                className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em]"
+                className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] group-hover:bg-black/10 break-words"
                 onClick={() => router.push(`/admin/${type}/update/${item.id}`)}
               >
                 <svg
@@ -93,7 +103,7 @@ export default function AdminTable({ type, data }: AdminTableProps) {
                 </svg>
               </td>
               <td
-                className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em]"
+                className="bg-white text-center w-[20%] align-middle py-[1em] px-[0.5em] group-hover:bg-black/10 break-words"
                 onClick={() => deleteItem(item.id)}
               >
                 <svg
