@@ -35,13 +35,13 @@ export default async function AdminNoticePage({
   searchParams?: { page: string; keyword: string };
 }) {
   const currPage = searchParams?.page ? Number(searchParams.page) : 1;
-  if (currPage < 0) redirect("/admin/notice");
+  if (currPage <= 0) redirect("/admin/notice");
 
   const searchKeyword = searchParams?.keyword;
   const totalCount = await db.notice.count({
     where: searchKeyword
       ? {
-          contents: {
+          title: {
             contains: searchKeyword,
           },
         }

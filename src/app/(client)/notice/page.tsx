@@ -41,7 +41,7 @@ export default async function NoticePage({
   searchParams?: { page: string; keyword: string };
 }) {
   const currPage = searchParams?.page ? Number(searchParams.page) : 1;
-  if (currPage < 0) redirect("/notice");
+  if (currPage <= 0) redirect("/notice");
 
   const searchKeyword = searchParams?.keyword;
   const totalCount = await db.notice.count({
