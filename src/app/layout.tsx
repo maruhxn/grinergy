@@ -43,7 +43,10 @@ const DESCRIPTION =
   "Environment, Innovation, Energy and Grinergy for the Green Future";
 
 export const metadata: Metadata = {
-  title: `GRINERGY`,
+  title: {
+    template: "%s | GRINERGY",
+    default: "GRINERGY",
+  },
   description: DESCRIPTION,
   keywords: ["grinergy"],
   twitter: {

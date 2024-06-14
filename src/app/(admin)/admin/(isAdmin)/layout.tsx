@@ -1,11 +1,12 @@
 import { getIsAdmin } from "@/app/actions";
 import AdminClientLayout from "@/components/AdminClientLayout";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-interface Payload {
-  ok: boolean;
-}
+export const metadata: Metadata = {
+  title: "Admin",
+};
 
 export default async function AdminLayout({
   children,

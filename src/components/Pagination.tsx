@@ -18,7 +18,7 @@ export default function Pagination({ currPage, totalPages }: PaginationProps) {
           <button
             disabled={value === currPage}
             className={cn(
-              "text-[10px] font-kr cursor-pointer rounded-[5px] bg-white text-black py-[5px] px-[10px] lg:py-[4px] lg:px-[9px] hover:bg-[#ccc]",
+              "size-[24px] aspect-square text-[10px] font-kr cursor-pointer rounded-[5px] bg-white text-black hover:bg-[#ccc]",
               value === currPage && "bg-black/80 text-white"
             )}
             onClick={() => router.push(`${pathname}?page=${value}`)}

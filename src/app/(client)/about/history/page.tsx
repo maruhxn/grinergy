@@ -1,7 +1,12 @@
 import BigPhrase from "@/components/BigPhrase";
 import HistoryList from "@/components/HistoryList";
 import { cn, getIsEng } from "@/libs/utils";
+import { Metadata } from "next";
 import { useTranslations } from "next-intl";
+
+export const metadata: Metadata = {
+  title: "History",
+};
 
 export default async function History() {
   const isEng = await getIsEng();

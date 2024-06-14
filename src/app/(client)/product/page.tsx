@@ -6,6 +6,11 @@ import Pargraph from "@/components/Pargraph";
 import ProductExSection from "@/components/ProductExSection";
 import ProductImageSection from "@/components/ProductImageSection";
 import { cn, getIsEng } from "@/libs/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Product",
+};
 
 export default async function ProductPage() {
   const isEng = await getIsEng();

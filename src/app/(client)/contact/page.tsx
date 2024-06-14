@@ -1,6 +1,11 @@
 import ContactParagraph from "@/components/ContactParagraph";
 import InfoRow from "@/components/InfoRow";
 import { getIsEng } from "@/libs/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+};
 
 export default async function ContactPage() {
   const isEng = await getIsEng();

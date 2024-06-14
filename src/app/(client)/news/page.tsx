@@ -4,7 +4,12 @@ import { PAGE_SIZE } from "@/libs/constants";
 import db from "@/libs/db";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "News",
+};
 
 export default async function NewsPage({
   searchParams,

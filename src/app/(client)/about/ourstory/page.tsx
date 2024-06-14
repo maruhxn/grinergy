@@ -4,6 +4,11 @@ import Pargraph from "@/components/Pargraph";
 import PromotionVideo from "@/components/PromotionVideo";
 import RoadMap from "@/components/RoadMap";
 import { getIsEng } from "@/libs/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Our story",
+};
 
 export default async function OurStoryPage() {
   const isEng = await getIsEng();

@@ -1,4 +1,9 @@
 import InvestorGrid from "@/components/InvestorGrid";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Investors",
+};
 
 export default function InvestorsPage() {
   return (

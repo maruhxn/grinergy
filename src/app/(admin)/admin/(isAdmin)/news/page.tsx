@@ -52,7 +52,7 @@ export default async function AdminNewsPage({
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   return (
-    <div className="w-full h-full bg-white rounded-[10px] overflow-x-scroll py-[2rem] px-[1rem]">
+    <div className="w-full h-full bg-white lg:h-screen rounded-[10px] overflow-x-scroll py-[2rem] px-[1rem]">
       <PageInfoSection
         currPage={currPage}
         total={totalCount}

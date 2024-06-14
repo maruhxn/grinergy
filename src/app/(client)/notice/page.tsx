@@ -4,7 +4,12 @@ import Table from "@/components/Table";
 import { PAGE_SIZE } from "@/libs/constants";
 import db from "@/libs/db";
 import { Prisma } from "@prisma/client";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Notice",
+};
 
 async function getAllNotices(currPage: number, searchKeyword?: string) {
   const data = await db.notice.findMany({

@@ -3,22 +3,12 @@ import db from "@/libs/db";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 import moment from "moment";
+import { Metadata } from "next";
 import Link from "next/link";
 
-interface NoticeFile {
-  fileName: string;
-  filePath: string;
-}
-
-interface INotice {
-  title: string;
-  contents: string;
-  files: NoticeFile[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  _id: string;
-}
+export const metadata: Metadata = {
+  title: "Notice Detail",
+};
 
 export default async function NoticeDetailPage({
   params: { noticeId },

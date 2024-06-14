@@ -25,7 +25,7 @@ export default function AdminClientLayout({
           className="none lg:block absolute w-full h-screen bg-black/60 z-20"
         />
       )}
-      <div className="w-full h-full min-h-screen p-[1rem] lg:pl-[16.625rem]">
+      <div className="w-full h-full p-[1rem] lg:pl-[16.625rem] lg:overflow-hidden lg:h-screen">
         <BreadCrumb isOpen={isOpen} setIsOpen={setIsOpen} />
         {children}
       </div>

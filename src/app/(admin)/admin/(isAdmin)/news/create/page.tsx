@@ -51,7 +51,7 @@ export default function CreateNewsPage() {
   return (
     <form
       onSubmit={handleSubmit((e) => onSubmit(e))}
-      className="bg-white roudned-[10px] size-full overflow-hidden flex flex-col justify-center p-[20px] border border-[#ccc] rounded-[20px] gap-[10px]"
+      className="bg-white roudned-[10px] size-full overflow-hidden flex flex-col justify-center p-[20px] border border-[#ccc] rounded-[20px] gap-[8px]"
     >
       <span className={labelCss}>미리보기 이미지 (5MB 이하)</span>
       <label
@@ -96,7 +96,7 @@ export default function CreateNewsPage() {
         제목
       </label>
       <input
-        className="w-full p-[10px] mb-[10px] border border-[#ccc] font-kr"
+        className="w-full p-[10px] border border-[#ccc] font-kr"
         type="text"
         required
         {...register("title")}
@@ -105,7 +105,7 @@ export default function CreateNewsPage() {
         뉴스 URL
       </label>
       <input
-        className="w-full p-[10px] mb-[10px] border border-[#ccc] font-kr"
+        className="w-full p-[10px] border border-[#ccc] font-kr"
         type="text"
         {...register("url")}
         required
@@ -113,9 +113,7 @@ export default function CreateNewsPage() {
       <label className={labelCss} htmlFor="contents">
         내용
       </label>
-      <div className="mb-[20px]">
-        <Editor onChange={handleChange} />
-      </div>
+      <Editor onChange={handleChange} />
       <button
         type="submit"
         className="text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300"
