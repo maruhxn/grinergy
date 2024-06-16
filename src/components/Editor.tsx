@@ -23,7 +23,13 @@ const ReactQuill = dynamic(
   { ssr: false }
 );
 
-export default function Editor({ onChange }: { onChange: any }) {
+export default function Editor({
+  onChange,
+  defaultValue,
+}: {
+  onChange: any;
+  defaultValue?: string;
+}) {
   const modules = {
     toolbar: {
       container: [
@@ -106,5 +112,12 @@ export default function Editor({ onChange }: { onChange: any }) {
     "video",
   ];
 
-  return <ReactQuill onChange={onChange} modules={modules} formats={formats} />;
+  return (
+    <ReactQuill
+      defaultValue={defaultValue}
+      onChange={onChange}
+      modules={modules}
+      formats={formats}
+    />
+  );
 }

@@ -2,10 +2,10 @@
 
 import db from "@/libs/db";
 import { uploadNewsPhoto } from "@/libs/server-functions";
-import { redirect } from "next/navigation";
-import { newsSchema } from "./schema";
+import fs from "fs/promises";
+import { updateNewsSchema } from "./schema";
 
-export async function uploadNews(formData: FormData) {
+export const updateNews = async (newsId: string, formData: FormData) => {
   const data = {
     photo: formData.get("photo"),
     title: formData.get("title"),
@@ -13,26 +13,39 @@ export async function uploadNews(formData: FormData) {
     contents: formData.get("contents"),
   };
 
+  const news = await db.news.findUnique({
+    where: {
+      id: newsId,
+    },
+    select: {
+      photo: true,
+    },
+  });
+
+  if (!news) throw new Error("뉴스 정보가 없습니다.");
+
   if (data.photo instanceof File) {
     const filePath = await uploadNewsPhoto(data.photo);
     if (!filePath) throw new Error("파일 저장 에러");
     data.photo = filePath?.toString();
+    if (news.photo) await fs.unlink(`./public${news.photo}`);
   }
 
-  const result = newsSchema.safeParse(data);
+  const result = updateNewsSchema.safeParse(data);
   if (!result.success) return result.error.flatten();
   const { title, url, contents, photo } = result.data;
-  const news = await db.news.create({
+  await db.news.update({
+    where: {
+      id: newsId,
+    },
     data: {
-      title,
-      contents,
-      url,
+      title: title ? title : undefined,
+      contents: contents ? contents : undefined,
+      url: url ? url : undefined,
       photo,
     },
     select: {
       id: true,
     },
   });
-
-  redirect(`/admin/news`);
-}
+};

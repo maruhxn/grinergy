@@ -1,10 +1,9 @@
 "use server";
 
 import db from "@/libs/db";
+import { createManyNoticeFiles } from "@/libs/server-functions";
 import { File as PrismaFileObject } from "@prisma/client";
-import fs from "fs/promises";
 import { redirect } from "next/navigation";
-import path from "path";
 import { noticeSchema } from "./schema";
 
 export async function uploadNotice(formData: FormData) {
@@ -15,18 +14,8 @@ export async function uploadNotice(formData: FormData) {
   };
 
   if (data.files.length > 0) {
-    const filePathArr = [];
-    for (let i = 0; i < data.files.length; i++) {
-      const file = data.files[i] as File;
-      const fileData = await file.arrayBuffer();
-      const fileName = `${Date.now()}_${path.basename(file.name)}`;
-      const filePath = `./public/uploads/notice/${fileName}`;
-      await fs.appendFile(filePath, Buffer.from(fileData));
-      filePathArr.push({
-        fileName: file.name,
-        filePath,
-      });
-    }
+    const filePathArr = createManyNoticeFiles(data.files);
+    if (!filePathArr) throw new Error("파일 저장 에러");
     data.files = filePathArr as any;
   }
 
