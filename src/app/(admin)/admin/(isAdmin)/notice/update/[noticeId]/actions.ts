@@ -27,7 +27,7 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
   if (!notice) throw new Error("공지사항 정보가 없습니다.");
 
   if (data.files && data.files.length > 0) {
-    const filePathArr = createManyNoticeFiles(data.files);
+    const filePathArr = await createManyNoticeFiles(data.files);
     if (!filePathArr) throw new Error("파일 저장 에러");
     data.files = filePathArr as any;
   }

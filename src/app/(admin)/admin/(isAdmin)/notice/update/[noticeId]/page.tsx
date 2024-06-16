@@ -108,17 +108,25 @@ export default function UpdateNoticePage({
       <label className={labelCss} htmlFor="title">
         제목
       </label>
-      <input
-        className="w-full p-[10px] mb-[10px] border border-[#ccc] font-kr"
-        type="text"
-        defaultValue={notice?.title}
-        {...register("title")}
-      />
+      <div>
+        <input
+          className="w-full p-[10px] mb-[10px] border border-[#ccc] font-kr"
+          type="text"
+          defaultValue={notice?.title}
+          {...register("title")}
+        />
+        <span className="text-red-500 font-medium font-kr text-sm">
+          {[errors.title?.message ?? ""]}
+        </span>
+      </div>
       <label className={labelCss} htmlFor="contents">
         내용
       </label>
       <div className="mb-[20px]">
         <Editor onChange={handleChange} defaultValue={notice!.contents} />
+        <span className="text-red-500 font-medium font-kr text-sm">
+          {[errors.contents?.message ?? ""]}
+        </span>
       </div>
       <label className={labelCss} htmlFor="file">
         첨부파일

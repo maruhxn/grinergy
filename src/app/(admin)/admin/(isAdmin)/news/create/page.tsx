@@ -16,6 +16,7 @@ export default function CreateNewsPage() {
     handleSubmit,
     setValue,
     trigger,
+    watch,
     formState: { errors },
   } = useForm<CreateNewsSchema>({
     resolver: zodResolver(newsSchema),
@@ -30,7 +31,7 @@ export default function CreateNewsPage() {
     const url = URL.createObjectURL(file);
     setPreviewImage(url);
     setPhoto(file);
-    setValue("photo", `/uploads/news/${file.name}`);
+    setValue("photo", "ok");
   };
 
   function handleChange(value: string) {
@@ -95,25 +96,38 @@ export default function CreateNewsPage() {
       <label className={labelCss} htmlFor="title">
         제목
       </label>
-      <input
-        className="w-full p-[10px] border border-[#ccc] font-kr"
-        type="text"
-        required
-        {...register("title")}
-      />
+      <div>
+        <input
+          className="w-full p-[10px] border border-[#ccc] font-kr"
+          type="text"
+          {...register("title")}
+        />
+        <span className="text-red-500 font-medium font-kr text-sm">
+          {[errors.title?.message ?? ""]}
+        </span>
+      </div>
       <label className={labelCss} htmlFor="url">
         뉴스 URL
       </label>
-      <input
-        className="w-full p-[10px] border border-[#ccc] font-kr"
-        type="text"
-        {...register("url")}
-        required
-      />
+      <div>
+        <input
+          className="w-full p-[10px] border border-[#ccc] font-kr"
+          type="text"
+          {...register("url")}
+        />
+        <span className="text-red-500 font-medium font-kr text-sm">
+          {[errors.url?.message ?? ""]}
+        </span>
+      </div>
       <label className={labelCss} htmlFor="contents">
         내용
       </label>
-      <Editor onChange={handleChange} />
+      <div>
+        <Editor onChange={handleChange} />
+        <span className="text-red-500 font-medium font-kr text-sm">
+          {[errors.contents?.message ?? ""]}
+        </span>
+      </div>
       <button
         type="submit"
         className="text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300"

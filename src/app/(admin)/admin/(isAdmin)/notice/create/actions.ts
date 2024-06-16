@@ -14,11 +14,12 @@ export async function uploadNotice(formData: FormData) {
   };
 
   if (data.files.length > 0) {
-    const filePathArr = createManyNoticeFiles(data.files);
+    const filePathArr = await createManyNoticeFiles(data.files);
     if (!filePathArr) throw new Error("파일 저장 에러");
     data.files = filePathArr as any;
   }
 
+  console.log(data);
   const result = noticeSchema.safeParse(data);
   if (!result.success) return result.error.flatten();
 
