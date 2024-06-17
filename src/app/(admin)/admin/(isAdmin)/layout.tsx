@@ -1,7 +1,6 @@
 import { getIsAdmin } from "@/app/actions";
 import AdminClientLayout from "@/components/AdminClientLayout";
 import { Metadata } from "next";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ export default async function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const token = cookies().get("token")?.value;
   const isAdmin = await getIsAdmin();
 
   if (!isAdmin) {

@@ -78,7 +78,7 @@ export default async function NewsPage({
                 ) : (
                   "No Image"
                 )}
-                <span className="text-[17px] lg:text-[14px] mt=[15px] mb-[10px] text-black/85">
+                <span className="text-[17px] lg:text-[14px] mt-[15px] mb-[10px] text-black/85">
                   {post.title}
                 </span>
                 <div

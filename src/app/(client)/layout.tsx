@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Providers from "@/components/Providers";
+import PageTransitionEvent from "@/components/PageTransition";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -18,7 +18,7 @@ export default async function ClientLayout({
     <div className="overflow-hidden min-h-screen h-full relative">
       <NextIntlClientProvider messages={messages}>
         <Header isAdmin={isAdmin} />
-        <Providers>{children}</Providers>
+        <PageTransitionEvent>{children}</PageTransitionEvent>
         <Footer />
       </NextIntlClientProvider>
     </div>

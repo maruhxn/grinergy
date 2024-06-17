@@ -19,7 +19,6 @@ export async function uploadNotice(formData: FormData) {
     data.files = filePathArr as any;
   }
 
-  console.log(data);
   const result = noticeSchema.safeParse(data);
   if (!result.success) return result.error.flatten();
 

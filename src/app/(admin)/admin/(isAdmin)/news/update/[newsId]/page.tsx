@@ -73,7 +73,6 @@ export default function UpdateNewsPage({
   }
 
   const onSubmit = async (data: UpdateNewsDto) => {
-    console.log(data);
     const formData = new FormData();
     if (data.title) formData.append("title", data.title);
     if (data.contents) formData.append("contents", data.contents);
