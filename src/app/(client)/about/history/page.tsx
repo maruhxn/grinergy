@@ -3,6 +3,9 @@ import HistoryList from "@/components/HistoryList";
 import { cn, getIsEng } from "@/libs/utils";
 import { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+
+import historyBanner from "../../../../../public/images/historyCoverImg.jpg";
 
 export const metadata: Metadata = {
   title: "History",
@@ -13,9 +16,11 @@ export default async function History() {
   return (
     <div className="mb-[2vh] overflow-hidden lg:mb-[4.1666vh]">
       <BigPhrase isEng={isEng} at={"History"} />
-      <img
-        className="w-[93%] mx-auto h-[30vh] lg:h-auto block"
-        src="/images/historyCoverImg.jpg"
+      <Image
+        className="w-[93%] mx-auto h-[30vh] lg:h-auto"
+        height={700}
+        placeholder="blur"
+        src={historyBanner}
         alt="커버 이미지"
       />
 

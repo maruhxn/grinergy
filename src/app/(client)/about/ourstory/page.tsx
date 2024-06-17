@@ -5,6 +5,9 @@ import PromotionVideo from "@/components/PromotionVideo";
 import RoadMap from "@/components/RoadMap";
 import { getIsEng } from "@/libs/utils";
 import { Metadata } from "next";
+import Image from "next/image";
+
+import humanImage from "../../../../../public/images/human.jpg";
 
 export const metadata: Metadata = {
   title: "Our story",
@@ -42,7 +45,13 @@ export default async function OurStoryPage() {
       </div>
 
       <section className="mb-[5px] lg:mb-[7px] text-[0px]">
-        <img src="/images/human.jpg" alt="human" className="w-full block" />
+        <Image
+          height={964}
+          className="w-full block"
+          src={humanImage}
+          alt="human"
+          placeholder="blur"
+        />
       </section>
       <RoadMap isEng={isEng} />
       <img
