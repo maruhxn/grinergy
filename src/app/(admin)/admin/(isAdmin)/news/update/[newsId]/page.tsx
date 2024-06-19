@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { getErrorMessage } from "@/libs/utils";
 import { News } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -36,8 +37,8 @@ export default function UpdateNewsPage({
         setLoading(false);
         setNews(data as News);
         if (data.photo) setPreviewImage(data?.photo);
-      } catch (error: any) {
-        toast.error(error.message);
+      } catch (error) {
+        toast.error(getErrorMessage(error));
         router.push("/admin/news");
       }
     };

@@ -22,6 +22,7 @@
 - Rate Limit
 - 아이피 차단 기능?
 - Vercel 배포 (stage, prod 구분) => 유료?
-- AWS S3 적용
+- AWS S3 or Cloudflare R2 적용
 - Error Handling 확실히
 - Transaction 적용
+- 데이터 캐싱 -> DB 부하 줄이기

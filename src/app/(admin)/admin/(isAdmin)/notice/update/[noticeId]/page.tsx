@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { getErrorMessage } from "@/libs/utils";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { updateNotice } from "./actions";
@@ -81,21 +82,26 @@ export default function UpdateNoticePage({
   }
 
   const onSubmit = async (data: UpdateNoticeDto) => {
-    const formData = new FormData();
-    if (data.title) formData.append("title", data.title);
-    if (data.contents) formData.append("contents", data.contents);
-    if (data.deletedFiles) {
-      data.deletedFiles.forEach((deletedFilePath) =>
-        formData.append("deletedFiles", deletedFilePath)
-      );
-    }
-    if (uploadFiles) {
-      for (let i = 0; i < uploadFiles.length; i++) {
-        formData.append("files", uploadFiles[i]);
+    try {
+      const formData = new FormData();
+      if (data.title) formData.append("title", data.title);
+      if (data.contents) formData.append("contents", data.contents);
+      if (data.deletedFiles) {
+        data.deletedFiles.forEach((deletedFilePath) =>
+          formData.append("deletedFiles", deletedFilePath)
+        );
       }
-    }
+      if (uploadFiles) {
+        for (let i = 0; i < uploadFiles.length; i++) {
+          formData.append("files", uploadFiles[i]);
+        }
+      }
 
-    await updateNoticeWithNoticeId(formData);
+      await updateNoticeWithNoticeId(formData);
+      router.push("/admin/notice");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
   };
 
   if (loading) return <div>Loading...</div>;

@@ -1,7 +1,12 @@
 import PageInfoSection from "@/components/PageInfoSection";
 import Pagination from "@/components/Pagination";
 import { PAGE_SIZE } from "@/libs/constants";
-import db from "@/libs/db";
+import {
+  getCachedAllNews,
+  getCachedTotalNewsCount,
+  getSearchedNews,
+  getSearchedNewsCount,
+} from "@/libs/query-actions/news.query";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 import { Metadata } from "next";
@@ -20,36 +25,12 @@ export default async function NewsPage({
   if (currPage <= 0) redirect("/news");
 
   const searchKeyword = searchParams?.keyword;
-  const totalCount = await db.news.count({
-    where: searchKeyword
-      ? {
-          contents: {
-            contains: searchKeyword,
-          },
-        }
-      : undefined,
-  });
-  const data = await db.news.findMany({
-    select: {
-      id: true,
-      title: true,
-      contents: true,
-      url: true,
-      photo: true,
-    },
-    where: searchKeyword
-      ? {
-          contents: {
-            contains: searchKeyword,
-          },
-        }
-      : undefined,
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: PAGE_SIZE,
-    skip: PAGE_SIZE * (currPage - 1),
-  });
+  const totalCount = searchKeyword
+    ? await getSearchedNewsCount(searchKeyword)
+    : await getCachedTotalNewsCount();
+  const data = searchKeyword
+    ? await getSearchedNews(currPage, searchKeyword)
+    : await getCachedAllNews(currPage);
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Notices } from "@/app/(client)/notice/page";
+import { Notices } from "@/libs/query-actions/notice.query";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 
@@ -22,23 +22,24 @@ export default function Table({ posts }: { posts: Notices }) {
         </tr>
       </thead>
       <tbody>
-        {posts.map((post, idx) => (
-          <tr
-            key={post.id}
-            className="cursor-pointer"
-            onClick={() => router.push(`/notice/${post.id}`)}
-          >
-            <td className="bg-white text-left w-[20%] align-middle py-[0.7em] px-[2em]">
-              {idx + 1}
-            </td>
-            <td className="bg-white text-left w-[20%] align-middle py-[0.7em] px-[2em]">
-              {post.title}
-            </td>
-            <td className="bg-white text-right w-[20%] align-middle py-[0.7em] px-[2em]">
-              {moment(post.createdAt).format("YYYY-MM-DD")}
-            </td>
-          </tr>
-        ))}
+        {posts &&
+          posts.map((post, idx) => (
+            <tr
+              key={post.id}
+              className="cursor-pointer"
+              onClick={() => router.push(`/notice/${post.id}`)}
+            >
+              <td className="bg-white text-left w-[20%] align-middle py-[0.7em] px-[2em]">
+                {idx + 1}
+              </td>
+              <td className="bg-white text-left w-[20%] align-middle py-[0.7em] px-[2em]">
+                {post.title}
+              </td>
+              <td className="bg-white text-right w-[20%] align-middle py-[0.7em] px-[2em]">
+                {moment(post.createdAt).format("YYYY-MM-DD")}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

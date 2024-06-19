@@ -2,32 +2,14 @@ import AdminTable from "@/components/AdminTable";
 import PageInfoSection from "@/components/PageInfoSection";
 import Pagination from "@/components/Pagination";
 import { PAGE_SIZE } from "@/libs/constants";
-import db from "@/libs/db";
-import { redirect } from "next/navigation";
 
-async function getAllNews(currPage: number, searchKeyword?: string) {
-  const data = await db.news.findMany({
-    select: {
-      id: true,
-      title: true,
-      contents: true,
-      createdAt: true,
-    },
-    where: searchKeyword
-      ? {
-          title: {
-            contains: searchKeyword,
-          },
-        }
-      : undefined,
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: PAGE_SIZE,
-    skip: PAGE_SIZE * (currPage - 1),
-  });
-  return data;
-}
+import {
+  getCachedAllNewsForAdmin,
+  getCachedTotalNewsCount,
+  getSearchedNewsCount,
+  getSearchedNewsForAdmin,
+} from "@/libs/query-actions/news.query";
+import { redirect } from "next/navigation";
 
 export default async function AdminNewsPage({
   searchParams,
@@ -38,16 +20,12 @@ export default async function AdminNewsPage({
   if (currPage <= 0) redirect("/admin/news");
 
   const searchKeyword = searchParams?.keyword;
-  const totalCount = await db.news.count({
-    where: searchKeyword
-      ? {
-          title: {
-            contains: searchKeyword,
-          },
-        }
-      : undefined,
-  });
-  const data = await getAllNews(currPage, searchKeyword);
+  const totalCount = searchKeyword
+    ? await getSearchedNewsCount(searchKeyword)
+    : await getCachedTotalNewsCount();
+  const data = searchKeyword
+    ? await getSearchedNewsForAdmin(currPage, searchKeyword)
+    : await getCachedAllNewsForAdmin(currPage);
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 

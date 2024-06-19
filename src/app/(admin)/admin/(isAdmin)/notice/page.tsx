@@ -2,32 +2,13 @@ import AdminTable from "@/components/AdminTable";
 import PageInfoSection from "@/components/PageInfoSection";
 import Pagination from "@/components/Pagination";
 import { PAGE_SIZE } from "@/libs/constants";
-import db from "@/libs/db";
+import {
+  getCachedAllNoticesForAdmin,
+  getCachedTotalNoticeCount,
+  getSearchedNoticeCount,
+  getSearchedNoticesForAdmin,
+} from "@/libs/query-actions/notice.query";
 import { redirect } from "next/navigation";
-
-async function getAllNotices(currPage: number, searchKeyword?: string) {
-  const data = await db.notice.findMany({
-    select: {
-      id: true,
-      title: true,
-      contents: true,
-      createdAt: true,
-    },
-    where: searchKeyword
-      ? {
-          title: {
-            contains: searchKeyword,
-          },
-        }
-      : undefined,
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: PAGE_SIZE,
-    skip: PAGE_SIZE * (currPage - 1),
-  });
-  return data;
-}
 
 export default async function AdminNoticePage({
   searchParams,
@@ -38,16 +19,12 @@ export default async function AdminNoticePage({
   if (currPage <= 0) redirect("/admin/notice");
 
   const searchKeyword = searchParams?.keyword;
-  const totalCount = await db.notice.count({
-    where: searchKeyword
-      ? {
-          title: {
-            contains: searchKeyword,
-          },
-        }
-      : undefined,
-  });
-  const data = await getAllNotices(currPage, searchKeyword);
+  const totalCount = searchKeyword
+    ? await getSearchedNoticeCount(searchKeyword)
+    : await getCachedTotalNoticeCount();
+  const data = searchKeyword
+    ? await getSearchedNoticesForAdmin(currPage, searchKeyword)
+    : await getCachedAllNoticesForAdmin(currPage);
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 

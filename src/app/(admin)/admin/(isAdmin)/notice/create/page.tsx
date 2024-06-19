@@ -1,9 +1,12 @@
 "use client";
 
 import Editor from "@/components/Editor";
+import { getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { uploadNotice } from "./actions";
 import { CreateNoticeSchema, noticeSchema } from "./schema";
 
@@ -19,6 +22,7 @@ export default function CreateNoticePage() {
   } = useForm<CreateNoticeSchema>({
     resolver: zodResolver(noticeSchema),
   });
+  const router = useRouter();
 
   function handleChange(value: string) {
     setValue("contents", value === "<p><br></p>" ? "" : value);
@@ -34,16 +38,21 @@ export default function CreateNoticePage() {
   }
 
   const onSubmit = async (data: CreateNoticeSchema) => {
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("contents", data.contents);
-    if (uploadFiles) {
-      for (let i = 0; i < uploadFiles.length; i++) {
-        formData.append("files", uploadFiles[i]);
+    try {
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("contents", data.contents);
+      if (uploadFiles) {
+        for (let i = 0; i < uploadFiles.length; i++) {
+          formData.append("files", uploadFiles[i]);
+        }
       }
-    }
 
-    await uploadNotice(formData);
+      await uploadNotice(formData);
+      router.push("/admin/notice");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
   };
 
   return (

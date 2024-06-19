@@ -10,3 +10,18 @@ export const getIsEng = async () => {
   const locale = await getLocale();
   return locale === "en";
 };
+
+export const getErrorMessage = (error: unknown) => {
+  let message = "Unknown Error";
+  if (error instanceof Error) message = error.message;
+  return message;
+};
+
+export const handleError = (error: unknown) => {
+  console.error(error);
+  if (error instanceof Error) {
+    throw new Error(error.message);
+  } else {
+    throw new Error("Server Error");
+  }
+};

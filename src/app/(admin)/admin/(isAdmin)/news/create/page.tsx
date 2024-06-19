@@ -1,9 +1,12 @@
 "use client";
 
 import Editor from "@/components/Editor";
+import { getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { uploadNews } from "./actions";
 import { CreateNewsSchema, newsSchema } from "./schema";
 
@@ -11,12 +14,13 @@ export default function CreateNewsPage() {
   const labelCss = "text-[0.8rem] lg:text-[0.9375rem] font-kr";
   const [previewImage, setPreviewImage] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     setValue,
     trigger,
-    watch,
     formState: { errors },
   } = useForm<CreateNewsSchema>({
     resolver: zodResolver(newsSchema),
@@ -40,13 +44,18 @@ export default function CreateNewsPage() {
   }
 
   const onSubmit = async (data: CreateNewsSchema) => {
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("contents", data.contents);
-    formData.append("url", data.url);
-    if (photo) formData.append("photo", photo);
+    try {
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("contents", data.contents);
+      formData.append("url", data.url);
+      if (photo) formData.append("photo", photo);
 
-    await uploadNews(formData);
+      await uploadNews(formData);
+      router.push("/admin/news");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
   };
 
   return (
