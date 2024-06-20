@@ -167,7 +167,7 @@ export default function AdminTable({ type, data }: AdminTableProps) {
                   isLoading && "bg-red-300"
                 )}
               >
-                삭제
+                {isLoading ? "삭제 중.." : "삭제"}
               </button>
               <button
                 onClick={() => {

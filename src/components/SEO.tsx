@@ -1,6 +1,8 @@
+import Head from "next/head";
+
 export default function SEO() {
   return (
-    <head>
+    <Head>
       <link
         rel="icon"
         type="image/png"
@@ -33,6 +35,6 @@ export default function SEO() {
       <link rel="manifest" href="/manifest.json" />
       <meta name="twitter:image" content="/og-image.jpg" />
       <meta name="theme-color" content="#009191" />
-    </head>
+    </Head>
   );
 }

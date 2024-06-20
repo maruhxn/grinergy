@@ -9,9 +9,7 @@ import { revalidateTag } from "next/cache";
 import { updateNewsSchema } from "./schema";
 
 export const getR2ImagePath = async (fileKey: string) => {
-  return process.env.NODE_ENV === "production"
-    ? `${process.env.R2_ENDPOINT}/${process.env.R2_BUCKET_NAME}/${fileKey}`
-    : `${process.env.R2_DEV_ENDPOINT}/${fileKey}`;
+  return `${process.env.R2_PUBLIC_ENDPOINT}/${fileKey}`;
 };
 
 export const updateNews = async (newsId: string, formData: FormData) => {

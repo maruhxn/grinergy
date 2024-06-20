@@ -53,11 +53,7 @@ export default async function NewsPage({
                 {post.photo ? (
                   <img
                     className="w-full h-[220px] lg:h-[250px] object-cover object-center"
-                    src={
-                      process.env.NODE_ENV === "production"
-                        ? `${process.env.R2_ENDPOINT}/${process.env.R2_BUCKET_NAME}/${post.photo}`
-                        : `${process.env.R2_DEV_ENDPOINT}/${post.photo}`
-                    }
+                    src={`${process.env.R2_PUBLIC_ENDPOINT}/${post.photo}`}
                     alt="뉴스 커버 이미지"
                   />
                 ) : (
