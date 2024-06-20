@@ -6,7 +6,7 @@ import {
   getCachedTotalNewsCount,
   getSearchedNews,
   getSearchedNewsCount,
-} from "@/libs/query-actions/news.query";
+} from "@/libs/db-actions/news";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 import { Metadata } from "next";
@@ -53,8 +53,12 @@ export default async function NewsPage({
                 {post.photo ? (
                   <img
                     className="w-full h-[220px] lg:h-[250px] object-cover object-center"
-                    src={post.photo}
-                    alt={post.title}
+                    src={
+                      process.env.NODE_ENV === "production"
+                        ? `${process.env.R2_ENDPOINT}/${process.env.R2_BUCKET_NAME}/${post.photo}`
+                        : `${process.env.R2_DEV_ENDPOINT}/${post.photo}`
+                    }
+                    alt="뉴스 커버 이미지"
                   />
                 ) : (
                   "No Image"

@@ -1,6 +1,6 @@
 "use client";
 
-import { Notices } from "@/libs/query-actions/notice.query";
+import { Notices } from "@/libs/db-actions/notice";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 

@@ -7,7 +7,7 @@ import {
   getCachedTotalNoticeCount,
   getSearchedNoticeCount,
   getSearchedNotices,
-} from "@/libs/query-actions/notice.query";
+} from "@/libs/db-actions/notice";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 

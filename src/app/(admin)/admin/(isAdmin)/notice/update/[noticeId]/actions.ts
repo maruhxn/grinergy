@@ -4,10 +4,10 @@ import FileDeleteException from "@/app/exceptions/FileDeleteException";
 import NotFoundException from "@/app/exceptions/NotFoundException";
 import { NOTICE_TAG } from "@/libs/constants";
 import db from "@/libs/db";
-import { createManyNoticeFiles } from "@/libs/query-actions/file.query";
+
+import { deleteOneFile, uploadManyFiles } from "@/libs/db-actions/file";
 import { handleError } from "@/libs/utils";
 import { File as PrismaFileObject } from "@prisma/client";
-import fs from "fs/promises";
 import { revalidateTag } from "next/cache";
 import { updateNoticeSchema } from "./schema";
 
@@ -32,7 +32,7 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     if (!notice) throw new NotFoundException("공지사항 정보가 없습니다.");
 
     if (data.files && data.files.length > 0) {
-      const filePathArr = await createManyNoticeFiles(data.files);
+      const filePathArr = await uploadManyFiles(data.files);
       data.files = filePathArr as any;
     }
 
@@ -42,7 +42,7 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
 
     try {
       deletedFiles?.forEach(async (deletedFilePath) => {
-        await fs.unlink(`./public${deletedFilePath}`);
+        await deleteOneFile(deletedFilePath);
         await db.file.delete({
           where: {
             noticeId,

@@ -2,7 +2,7 @@
 
 import { NOTICE_COUNT_TAG, NOTICE_TAG } from "@/libs/constants";
 import db from "@/libs/db";
-import { createManyNoticeFiles } from "@/libs/query-actions/file.query";
+import { uploadManyFiles } from "@/libs/db-actions/file";
 import { handleError } from "@/libs/utils";
 import { File as PrismaFileObject } from "@prisma/client";
 import { revalidateTag } from "next/cache";
@@ -17,11 +17,12 @@ export async function uploadNotice(formData: FormData) {
     };
 
     if (data.files.length > 0) {
-      const filePathArr = await createManyNoticeFiles(data.files);
+      const filePathArr = await uploadManyFiles(data.files);
       data.files = filePathArr as any;
     }
 
     const result = noticeSchema.safeParse(data);
+    console.log(result.error?.flatten());
     if (!result.success) return result.error.flatten();
 
     const { title, contents, files } = result.data;

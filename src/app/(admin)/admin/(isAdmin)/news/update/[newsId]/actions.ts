@@ -1,13 +1,18 @@
 "use server";
 
-import FileDeleteException from "@/app/exceptions/FileDeleteException";
+import NotFoundException from "@/app/exceptions/NotFoundException";
 import { NEWS_TAG } from "@/libs/constants";
 import db from "@/libs/db";
-import { uploadNewsPhoto } from "@/libs/query-actions/file.query";
+import { deleteOneFile, uploadOneFile } from "@/libs/db-actions/file";
 import { handleError } from "@/libs/utils";
-import fs from "fs/promises";
 import { revalidateTag } from "next/cache";
 import { updateNewsSchema } from "./schema";
+
+export const getR2ImagePath = async (fileKey: string) => {
+  return process.env.NODE_ENV === "production"
+    ? `${process.env.R2_ENDPOINT}/${process.env.R2_BUCKET_NAME}/${fileKey}`
+    : `${process.env.R2_DEV_ENDPOINT}/${fileKey}`;
+};
 
 export const updateNews = async (newsId: string, formData: FormData) => {
   try {
@@ -27,31 +32,26 @@ export const updateNews = async (newsId: string, formData: FormData) => {
       },
     });
 
-    if (!news) throw new Error("뉴스 정보가 없습니다.");
+    if (!news) throw new NotFoundException("뉴스 정보가 없습니다.");
 
     if (data.photo instanceof File) {
-      const filePath = await uploadNewsPhoto(data.photo);
-      data.photo = filePath?.toString();
-      try {
-        if (news.photo) await fs.unlink(`./public${news.photo}`);
-      } catch (error) {
-        throw new FileDeleteException(
-          `다음 경로의 파일 삭제 실패: ./public${news.photo}`
-        );
-      }
+      const fileKey = await uploadOneFile(data.photo);
+      data.photo = fileKey;
+      if (news.photo) await deleteOneFile(news.photo);
     }
 
     const result = updateNewsSchema.safeParse(data);
     if (!result.success) return result.error.flatten();
     const { title, url, contents, photo } = result.data;
+
     await db.news.update({
       where: {
         id: newsId,
       },
       data: {
-        title: title ? title : undefined,
-        contents: contents ? contents : undefined,
-        url: url ? url : undefined,
+        title: title || undefined,
+        contents: contents || undefined,
+        url: url || undefined,
         photo,
       },
       select: {

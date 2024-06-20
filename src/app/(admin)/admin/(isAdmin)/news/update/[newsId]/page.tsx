@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { getErrorMessage } from "@/libs/utils";
+import { cn, getErrorMessage } from "@/libs/utils";
 import { News } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { updateNews } from "./actions";
+import { getR2ImagePath, updateNews } from "./actions";
 import { UpdateNewsDto, updateNewsSchema } from "./schema";
 
 export default function UpdateNewsPage({
@@ -22,7 +22,9 @@ export default function UpdateNewsPage({
   const [previewImage, setPreviewImage] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
   const [news, setNews] = useState<News | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const updateNewsWithId = updateNews.bind(null, newsId);
 
   useEffect(() => {
@@ -34,9 +36,9 @@ export default function UpdateNewsPage({
           throw new Error(data);
         }
 
-        setLoading(false);
+        setIsFetching(false);
         setNews(data as News);
-        if (data.photo) setPreviewImage(data?.photo);
+        if (data.photo) setPreviewImage(await getR2ImagePath(data.photo));
       } catch (error) {
         toast.error(getErrorMessage(error));
         router.push("/admin/news");
@@ -74,17 +76,25 @@ export default function UpdateNewsPage({
   }
 
   const onSubmit = async (data: UpdateNewsDto) => {
-    const formData = new FormData();
-    if (data.title) formData.append("title", data.title);
-    if (data.contents) formData.append("contents", data.contents);
-    if (data.url) formData.append("url", data.url);
-    if (photo) formData.append("photo", photo);
+    if (isLoading) return;
+    try {
+      setIsLoading(true);
+      const formData = new FormData();
+      if (data.title) formData.append("title", data.title);
+      if (data.contents) formData.append("contents", data.contents);
+      if (data.url) formData.append("url", data.url);
+      if (photo) formData.append("photo", photo);
 
-    await updateNewsWithId(formData);
-    router.push("/admin/news");
+      await updateNewsWithId(formData);
+      router.push("/admin/news");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (isFetching) return <div>Loading...</div>;
 
   return (
     <form
@@ -169,9 +179,13 @@ export default function UpdateNewsPage({
       </div>
       <button
         type="submit"
-        className="text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300"
+        disabled={isLoading}
+        className={cn(
+          "text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300",
+          isLoading && "bg-black/30 border-none"
+        )}
       >
-        등록
+        {isLoading ? "수정 중.." : "수정"}
       </button>
     </form>
   );

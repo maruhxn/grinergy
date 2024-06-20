@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { getErrorMessage } from "@/libs/utils";
+import { cn, getErrorMessage } from "@/libs/utils";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { updateNotice } from "./actions";
@@ -31,7 +31,9 @@ export default function UpdateNoticePage({
   const labelCss = "text-[0.8rem] lg:text-[0.9375rem] font-kr";
   const [uploadFiles, setUploadFiles] = useState<FileList | null>(null);
   const [notice, setNotice] = useState<NoticeDetail | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const updateNoticeWithNoticeId = updateNotice.bind(null, noticeId);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function UpdateNoticePage({
           throw new Error(data);
         }
 
-        setLoading(false);
+        setIsFetching(false);
         setNotice(data as NoticeDetail);
       } catch (error: any) {
         toast.error(error.message);
@@ -82,7 +84,9 @@ export default function UpdateNoticePage({
   }
 
   const onSubmit = async (data: UpdateNoticeDto) => {
+    if (isLoading) return;
     try {
+      setIsLoading(true);
       const formData = new FormData();
       if (data.title) formData.append("title", data.title);
       if (data.contents) formData.append("contents", data.contents);
@@ -101,10 +105,12 @@ export default function UpdateNoticePage({
       router.push("/admin/notice");
     } catch (error) {
       toast.error(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (isFetching) return <div>Loading...</div>;
 
   return (
     <form
@@ -172,9 +178,13 @@ export default function UpdateNoticePage({
       )}
       <button
         type="submit"
-        className="text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300"
+        disabled={isLoading}
+        className={cn(
+          "text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300",
+          isLoading && "bg-black/30 border-none"
+        )}
       >
-        등록
+        {isLoading ? "수정 중.." : "수정"}
       </button>
     </form>
   );

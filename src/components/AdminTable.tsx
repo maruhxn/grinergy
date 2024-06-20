@@ -2,7 +2,7 @@
 
 import { deleteNews } from "@/app/(admin)/admin/(isAdmin)/news/actions";
 import { deleteNotice } from "@/app/(admin)/admin/(isAdmin)/notice/actions";
-import { getErrorMessage } from "@/libs/utils";
+import { cn, getErrorMessage } from "@/libs/utils";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,8 +24,11 @@ export default function AdminTable({ type, data }: AdminTableProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const deleteItem = async () => {
-    if (!selectedItemId) return;
+    if (isLoading || !selectedItemId) return;
+    setIsLoading(true);
     try {
       type === "notice"
         ? await deleteNotice(selectedItemId)
@@ -36,6 +39,7 @@ export default function AdminTable({ type, data }: AdminTableProps) {
     } finally {
       setIsModalOpen(false);
       setSelectedItemId(null);
+      setIsLoading(false);
     }
   };
 
@@ -157,7 +161,11 @@ export default function AdminTable({ type, data }: AdminTableProps) {
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={deleteItem}
-                className="bg-red-600 px-6 py-3 text-white rounded-lg text-sm"
+                disabled={isLoading}
+                className={cn(
+                  "bg-red-600 px-6 py-3 text-white rounded-lg text-sm",
+                  isLoading && "bg-red-300"
+                )}
               >
                 삭제
               </button>
@@ -166,7 +174,11 @@ export default function AdminTable({ type, data }: AdminTableProps) {
                   setIsModalOpen(false);
                   setSelectedItemId(null);
                 }}
-                className="bg-black px-6 py-3 text-white rounded-lg text-sm"
+                disabled={isLoading}
+                className={cn(
+                  "bg-black px-6 py-3 text-white rounded-lg text-sm",
+                  isLoading && "bg-black/30"
+                )}
               >
                 취소
               </button>

@@ -8,7 +8,7 @@ import {
   getCachedTotalNewsCount,
   getSearchedNewsCount,
   getSearchedNewsForAdmin,
-} from "@/libs/query-actions/news.query";
+} from "@/libs/db-actions/news";
 import { redirect } from "next/navigation";
 
 export default async function AdminNewsPage({

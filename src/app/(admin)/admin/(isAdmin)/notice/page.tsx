@@ -7,7 +7,7 @@ import {
   getCachedTotalNoticeCount,
   getSearchedNoticeCount,
   getSearchedNoticesForAdmin,
-} from "@/libs/query-actions/notice.query";
+} from "@/libs/db-actions/notice";
 import { redirect } from "next/navigation";
 
 export default async function AdminNoticePage({

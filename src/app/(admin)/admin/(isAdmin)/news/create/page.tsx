@@ -1,7 +1,7 @@
 "use client";
 
 import Editor from "@/components/Editor";
-import { getErrorMessage } from "@/libs/utils";
+import { cn, getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -14,6 +14,7 @@ export default function CreateNewsPage() {
   const labelCss = "text-[0.8rem] lg:text-[0.9375rem] font-kr";
   const [previewImage, setPreviewImage] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const {
@@ -44,7 +45,9 @@ export default function CreateNewsPage() {
   }
 
   const onSubmit = async (data: CreateNewsSchema) => {
+    if (isLoading) return;
     try {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("contents", data.contents);
@@ -55,6 +58,8 @@ export default function CreateNewsPage() {
       router.push("/admin/news");
     } catch (error) {
       toast.error(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -139,9 +144,13 @@ export default function CreateNewsPage() {
       </div>
       <button
         type="submit"
-        className="text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300"
+        disabled={isLoading}
+        className={cn(
+          "text-[0.8rem] lg:text-[1rem] bg-black/80 text-white py-[0.5rem] px-[1rem] border border-black w-fit mx-auto rounded-[10px] hover:bg-white hover:text-black transition-all duration-300",
+          isLoading && "bg-black/30 border-none"
+        )}
       >
-        등록
+        {isLoading ? "등록 중.." : "등록"}
       </button>
     </form>
   );
