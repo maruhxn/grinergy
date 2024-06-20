@@ -1,4 +1,5 @@
 import SEO from "@/components/SEO";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Twitter } from "next/dist/lib/metadata/types/twitter-types";
@@ -87,6 +88,7 @@ export default async function RootLayout({
       >
         {children}
         <Toaster position="bottom-right" />
+        <Analytics mode={"production"} />;
       </body>
     </html>
   );
