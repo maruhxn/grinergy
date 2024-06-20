@@ -7,16 +7,16 @@ import path from "path";
 import s3Client from "../s3-client";
 
 export const uploadManyFiles = async (files: FormDataEntryValue[]) => {
-  const filePathArr = [];
+  const fileKeyArr = [];
   for (let i = 0; i < files.length; i++) {
     const file = files[i] as File;
     const fileKey = await uploadOneFile(file);
-    filePathArr.push({
+    fileKeyArr.push({
       fileName: file.name,
-      filePath: fileKey,
+      fileKey: fileKey,
     });
   }
-  return filePathArr;
+  return fileKeyArr;
 };
 
 export const uploadOneFile = async (file: File) => {

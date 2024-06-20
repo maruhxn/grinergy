@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "dotenv -e .env.production -- prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate-dev": "npx prisma migrate dev",
+    "push:dev": "dotenv -e .env.development -- npx prisma db push",
     "studio": "npx prisma studio"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@prisma/client": "^5.15.0",
     "clsx": "^2.1.1",
     "dompurify": "^3.1.5",
+    "dotenv-cli": "^7.4.2",
     "framer-motion": "^11.2.10",
     "html-react-parser": "^5.1.10",
     "isomorphic-dompurify": "^2.12.0",

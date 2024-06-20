@@ -35,7 +35,7 @@ model Notice {
 model File {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   fileName String
-  filePath String @unique
+  fileKey  String @unique
 
   notice   Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
   noticeId String @db.ObjectId

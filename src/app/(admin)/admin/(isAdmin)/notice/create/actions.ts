@@ -17,12 +17,11 @@ export async function uploadNotice(formData: FormData) {
     };
 
     if (data.files.length > 0) {
-      const filePathArr = await uploadManyFiles(data.files);
-      data.files = filePathArr as any;
+      const fileKeyArr = await uploadManyFiles(data.files);
+      data.files = fileKeyArr as any;
     }
 
     const result = noticeSchema.safeParse(data);
-    console.log(result.error?.flatten());
     if (!result.success) return result.error.flatten();
 
     const { title, contents, files } = result.data;
@@ -42,7 +41,7 @@ export async function uploadNotice(formData: FormData) {
           (file) =>
             ({
               fileName: file.fileName,
-              filePath: file.filePath,
+              fileKey: file.fileKey,
               noticeId: notice.id,
             } as PrismaFileObject)
         ),

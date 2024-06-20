@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
-  const fileKey = searchParams.get("filePath");
+  const fileKey = searchParams.get("fileKey");
   const fileName = searchParams.get("fileName");
 
   if (!fileKey || !fileName)

@@ -17,7 +17,7 @@ export async function deleteNotice(noticeId: string) {
         id: true,
         files: {
           select: {
-            filePath: true,
+            fileKey: true,
           },
         },
       },
@@ -25,8 +25,8 @@ export async function deleteNotice(noticeId: string) {
 
     if (!notice) throw new NotFoundException("공지사항 정보가 없습니다.");
 
-    const fileDeletionPromises = notice.files.map(async ({ filePath }) => {
-      await deleteOneFile(filePath);
+    const fileDeletionPromises = notice.files.map(async ({ fileKey }) => {
+      await deleteOneFile(fileKey);
     });
 
     await db.notice.delete({

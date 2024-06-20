@@ -15,7 +15,7 @@ interface NoticeDetail {
   files: {
     id: string;
     fileName: string;
-    filePath: string;
+    fileKey: string;
     noticeId: string;
   }[];
   title: string;
@@ -91,8 +91,8 @@ export default function UpdateNoticePage({
       if (data.title) formData.append("title", data.title);
       if (data.contents) formData.append("contents", data.contents);
       if (data.deletedFiles) {
-        data.deletedFiles.forEach((deletedFilePath) =>
-          formData.append("deletedFiles", deletedFilePath)
+        data.deletedFiles.forEach((deletedFileKey) =>
+          formData.append("deletedFiles", deletedFileKey)
         );
       }
       if (uploadFiles) {
@@ -168,7 +168,7 @@ export default function UpdateNoticePage({
                   type="checkbox"
                   id={file.id}
                   {...register("deletedFiles")}
-                  value={file.filePath}
+                  value={file.fileKey}
                 />
                 <label htmlFor={file.id}>삭제</label>
               </div>

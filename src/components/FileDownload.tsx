@@ -8,14 +8,14 @@ export default function FileDownload({
   file: {
     id: string;
     fileName: string;
-    filePath: string;
+    fileKey: string;
     noticeId: string;
   };
 }) {
-  async function downloadFile(filePath: string, fileName: string) {
+  async function downloadFile(fileKey: string, fileName: string) {
     const res = await fetch(
-      `/api/download?filePath=${encodeURIComponent(
-        filePath
+      `/api/download?fileKey=${encodeURIComponent(
+        fileKey
       )}&fileName=${encodeURIComponent(fileName)}`
     );
     if (!res.ok) return toast.error("파일 다운로드 실패");
@@ -32,7 +32,7 @@ export default function FileDownload({
   }
 
   return (
-    <span onClick={() => downloadFile(file.filePath, file.fileName)}>
+    <span onClick={() => downloadFile(file.fileKey, file.fileName)}>
       {file.fileName.length > 20
         ? file.fileName.substring(0, 10) +
           "..." +

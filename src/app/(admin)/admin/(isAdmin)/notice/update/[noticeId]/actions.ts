@@ -32,8 +32,8 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     if (!notice) throw new NotFoundException("공지사항 정보가 없습니다.");
 
     if (data.files && data.files.length > 0) {
-      const filePathArr = await uploadManyFiles(data.files);
-      data.files = filePathArr as any;
+      const fileKeyArr = await uploadManyFiles(data.files);
+      data.files = fileKeyArr as any;
     }
 
     const result = updateNoticeSchema.safeParse(data);
@@ -41,12 +41,12 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     const { title, contents, files, deletedFiles } = result.data;
 
     try {
-      deletedFiles?.forEach(async (deletedFilePath) => {
-        await deleteOneFile(deletedFilePath);
+      deletedFiles?.forEach(async (deletedFileKey) => {
+        await deleteOneFile(deletedFileKey);
         await db.file.delete({
           where: {
             noticeId,
-            filePath: deletedFilePath,
+            fileKey: deletedFileKey,
           },
         });
       });
@@ -70,7 +70,7 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
           (file) =>
             ({
               fileName: file.fileName,
-              filePath: file.filePath,
+              fileKey: file.fileKey,
               noticeId: noticeId,
             } as PrismaFileObject)
         ),

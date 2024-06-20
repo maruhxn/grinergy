@@ -5,7 +5,7 @@ export const noticeSchema = z.object({
     .array(
       z.object({
         fileName: z.string(),
-        filePath: z.string(),
+        fileKey: z.string(),
       })
     )
     .nullish(),
