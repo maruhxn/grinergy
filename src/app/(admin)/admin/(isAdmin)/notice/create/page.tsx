@@ -40,24 +40,26 @@ export default function CreateNoticePage() {
 
   const onSubmit = async (data: CreateNoticeSchema) => {
     if (isLoading) return;
-    try {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("contents", data.contents);
-      if (uploadFiles) {
-        for (let i = 0; i < uploadFiles.length; i++) {
-          formData.append("files", uploadFiles[i]);
-        }
-      }
 
-      await uploadNotice(formData);
-      router.push("/admin/notice");
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-    } finally {
-      setIsLoading(false);
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("contents", data.contents);
+    if (uploadFiles) {
+      for (let i = 0; i < uploadFiles.length; i++) {
+        formData.append("files", uploadFiles[i]);
+      }
     }
+
+    const error = await uploadNotice(formData);
+    if (error?.message) {
+      toast.error(getErrorMessage(error));
+      setIsLoading(false);
+      return;
+    }
+    router.push("/admin/notice");
+    toast.success("공지사항 생성 성공");
+    setIsLoading(false);
   };
 
   return (

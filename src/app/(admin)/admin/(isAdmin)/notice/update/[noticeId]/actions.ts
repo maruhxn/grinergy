@@ -1,12 +1,13 @@
 "use server";
 
-import FileDeleteException from "@/app/exceptions/FileDeleteException";
-import NotFoundException from "@/app/exceptions/NotFoundException";
+import FileDeleteException from "@/exceptions/FileDeleteException";
+import NotFoundException from "@/exceptions/NotFoundException";
 import { NOTICE_TAG } from "@/libs/constants";
 import db from "@/libs/db";
 
+import ValidationException from "@/exceptions/ValidationException";
 import { deleteOneFile, uploadManyFiles } from "@/libs/db-actions/file";
-import { handleError } from "@/libs/utils";
+import handleError from "@/libs/error-handler";
 import { File as PrismaFileObject } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 import { updateNoticeSchema } from "./schema";
@@ -37,7 +38,8 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     }
 
     const result = updateNoticeSchema.safeParse(data);
-    if (!result.success) return result.error.flatten();
+    if (!result.success) throw new ValidationException();
+
     const { title, contents, files, deletedFiles } = result.data;
 
     try {
@@ -78,6 +80,6 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     }
     revalidateTag(NOTICE_TAG);
   } catch (error) {
-    handleError(error);
+    return await handleError(error);
   }
 };

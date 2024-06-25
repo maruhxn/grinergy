@@ -29,18 +29,21 @@ export default function AdminTable({ type, data }: AdminTableProps) {
   const deleteItem = async () => {
     if (isLoading || !selectedItemId) return;
     setIsLoading(true);
-    try {
+
+    const error =
       type === "notice"
         ? await deleteNotice(selectedItemId)
         : await deleteNews(selectedItemId);
-      toast.success("게시글을 삭제하였습니다");
-    } catch (error) {
+
+    if (error?.message) {
       toast.error(getErrorMessage(error));
-    } finally {
-      setIsModalOpen(false);
-      setSelectedItemId(null);
-      setIsLoading(false);
+    } else {
+      toast.success("게시글을 삭제하였습니다");
     }
+
+    setIsModalOpen(false);
+    setSelectedItemId(null);
+    setIsLoading(false);
   };
 
   return (

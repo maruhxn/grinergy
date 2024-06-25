@@ -1,10 +1,10 @@
 "use server";
 
-import NotFoundException from "@/app/exceptions/NotFoundException";
+import NotFoundException from "@/exceptions/NotFoundException";
 import { NEWS_COUNT_TAG, NEWS_TAG } from "@/libs/constants";
 import db from "@/libs/db";
 import { deleteOneFile } from "@/libs/db-actions/file";
-import { handleError } from "@/libs/utils";
+import handleError from "@/libs/error-handler";
 import { revalidateTag } from "next/cache";
 
 export async function deleteNews(newsId: string) {
@@ -31,6 +31,6 @@ export async function deleteNews(newsId: string) {
     revalidateTag(NEWS_TAG);
     revalidateTag(NEWS_COUNT_TAG);
   } catch (error) {
-    handleError(error);
+    return await handleError(error);
   }
 }

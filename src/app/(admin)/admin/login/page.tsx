@@ -1,5 +1,6 @@
 "use client";
 
+import LoginButton from "@/components/LoginButton";
 import { useFormState } from "react-dom";
 import { login } from "./actions";
 
@@ -37,12 +38,7 @@ export default function AdminLoginPage() {
             </span>
           ))}
         </div>
-        <button
-          className="font-en bg-black text-white text-[0.8rem] lg:text-[1rem] py-[0.3rem] px-[0.8rem] lg:py-[0.5rem] lg:px-[1rem] border-0 hover:bg-white hover:text-black transition-all"
-          type="submit"
-        >
-          LOGIN
-        </button>
+        <LoginButton />
       </form>
     </div>
   );

@@ -46,21 +46,24 @@ export default function CreateNewsPage() {
 
   const onSubmit = async (data: CreateNewsSchema) => {
     if (isLoading) return;
-    try {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("contents", data.contents);
-      formData.append("url", data.url);
-      if (photo) formData.append("photo", photo);
 
-      await uploadNews(formData);
-      router.push("/admin/news");
-    } catch (error) {
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("contents", data.contents);
+    formData.append("url", data.url);
+    if (photo) formData.append("photo", photo);
+
+    const error = await uploadNews(formData);
+    if (error?.message) {
       toast.error(getErrorMessage(error));
-    } finally {
       setIsLoading(false);
+      return;
     }
+
+    router.push("/admin/news");
+    toast.success("뉴스 생성 성공");
+    setIsLoading(false);
   };
 
   return (

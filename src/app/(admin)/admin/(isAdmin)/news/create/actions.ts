@@ -1,9 +1,10 @@
 "use server";
 
+import ValidationException from "@/exceptions/ValidationException";
 import { NEWS_COUNT_TAG, NEWS_TAG } from "@/libs/constants";
 import db from "@/libs/db";
 import { uploadOneFile } from "@/libs/db-actions/file";
-import { handleError } from "@/libs/utils";
+import handleError from "@/libs/error-handler";
 import { revalidateTag } from "next/cache";
 import { newsSchema } from "./schema";
 
@@ -22,7 +23,7 @@ export async function uploadNews(formData: FormData) {
     }
 
     const result = newsSchema.safeParse(data);
-    if (!result.success) return result.error.flatten();
+    if (!result.success) throw new ValidationException();
     const { title, url, contents, photo } = result.data;
     await db.news.create({
       data: {
@@ -39,6 +40,6 @@ export async function uploadNews(formData: FormData) {
     revalidateTag(NEWS_TAG);
     revalidateTag(NEWS_COUNT_TAG);
   } catch (error) {
-    handleError(error);
+    return await handleError(error);
   }
 }

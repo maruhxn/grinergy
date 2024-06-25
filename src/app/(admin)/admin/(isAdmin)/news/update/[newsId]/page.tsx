@@ -77,21 +77,23 @@ export default function UpdateNewsPage({
 
   const onSubmit = async (data: UpdateNewsDto) => {
     if (isLoading) return;
-    try {
-      setIsLoading(true);
-      const formData = new FormData();
-      if (data.title) formData.append("title", data.title);
-      if (data.contents) formData.append("contents", data.contents);
-      if (data.url) formData.append("url", data.url);
-      if (photo) formData.append("photo", photo);
 
-      await updateNewsWithId(formData);
-      router.push("/admin/news");
-    } catch (error) {
+    setIsLoading(true);
+    const formData = new FormData();
+    if (data.title) formData.append("title", data.title);
+    if (data.contents) formData.append("contents", data.contents);
+    if (data.url) formData.append("url", data.url);
+    if (photo) formData.append("photo", photo);
+
+    const error = await updateNewsWithId(formData);
+    if (error?.message) {
       toast.error(getErrorMessage(error));
-    } finally {
       setIsLoading(false);
+      return;
     }
+    router.push("/admin/news");
+    toast.success("뉴스 수정 성공");
+    setIsLoading(false);
   };
 
   if (isFetching) return <div>Loading...</div>;

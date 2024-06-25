@@ -88,7 +88,7 @@ export default async function RootLayout({
       >
         {children}
         <Toaster position="bottom-right" />
-        <Analytics mode={"production"} />;
+        <Analytics mode={"production"} />
       </body>
     </html>
   );

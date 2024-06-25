@@ -1,10 +1,11 @@
 "use server";
 
-import NotFoundException from "@/app/exceptions/NotFoundException";
+import NotFoundException from "@/exceptions/NotFoundException";
+import ValidationException from "@/exceptions/ValidationException";
 import { NEWS_TAG } from "@/libs/constants";
 import db from "@/libs/db";
 import { deleteOneFile, uploadOneFile } from "@/libs/db-actions/file";
-import { handleError } from "@/libs/utils";
+import handleError from "@/libs/error-handler";
 import { revalidateTag } from "next/cache";
 import { updateNewsSchema } from "./schema";
 
@@ -39,7 +40,7 @@ export const updateNews = async (newsId: string, formData: FormData) => {
     }
 
     const result = updateNewsSchema.safeParse(data);
-    if (!result.success) return result.error.flatten();
+    if (!result.success) throw new ValidationException();
     const { title, url, contents, photo } = result.data;
 
     await db.news.update({
@@ -58,6 +59,6 @@ export const updateNews = async (newsId: string, formData: FormData) => {
     });
     revalidateTag(NEWS_TAG);
   } catch (error) {
-    handleError(error);
+    return await handleError(error);
   }
 };

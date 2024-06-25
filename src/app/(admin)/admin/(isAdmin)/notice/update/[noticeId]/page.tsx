@@ -85,29 +85,31 @@ export default function UpdateNoticePage({
 
   const onSubmit = async (data: UpdateNoticeDto) => {
     if (isLoading) return;
-    try {
-      setIsLoading(true);
-      const formData = new FormData();
-      if (data.title) formData.append("title", data.title);
-      if (data.contents) formData.append("contents", data.contents);
-      if (data.deletedFiles) {
-        data.deletedFiles.forEach((deletedFileKey) =>
-          formData.append("deletedFiles", deletedFileKey)
-        );
-      }
-      if (uploadFiles) {
-        for (let i = 0; i < uploadFiles.length; i++) {
-          formData.append("files", uploadFiles[i]);
-        }
-      }
 
-      await updateNoticeWithNoticeId(formData);
-      router.push("/admin/notice");
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-    } finally {
-      setIsLoading(false);
+    setIsLoading(true);
+    const formData = new FormData();
+    if (data.title) formData.append("title", data.title);
+    if (data.contents) formData.append("contents", data.contents);
+    if (data.deletedFiles) {
+      data.deletedFiles.forEach((deletedFileKey) =>
+        formData.append("deletedFiles", deletedFileKey)
+      );
     }
+    if (uploadFiles) {
+      for (let i = 0; i < uploadFiles.length; i++) {
+        formData.append("files", uploadFiles[i]);
+      }
+    }
+
+    const error = await updateNoticeWithNoticeId(formData);
+    if (error?.message) {
+      toast.error(getErrorMessage(error));
+      setIsLoading(false);
+      return;
+    }
+    router.push("/admin/notice");
+    toast.success("공지사항 수정 성공");
+    setIsLoading(false);
   };
 
   if (isFetching) return <div>Loading...</div>;

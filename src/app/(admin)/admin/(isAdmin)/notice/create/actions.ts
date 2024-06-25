@@ -1,9 +1,10 @@
 "use server";
 
+import ValidationException from "@/exceptions/ValidationException";
 import { NOTICE_COUNT_TAG, NOTICE_TAG } from "@/libs/constants";
 import db from "@/libs/db";
 import { uploadManyFiles } from "@/libs/db-actions/file";
-import { handleError } from "@/libs/utils";
+import handleError from "@/libs/error-handler";
 import { File as PrismaFileObject } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 import { noticeSchema } from "./schema";
@@ -22,7 +23,7 @@ export async function uploadNotice(formData: FormData) {
     }
 
     const result = noticeSchema.safeParse(data);
-    if (!result.success) return result.error.flatten();
+    if (!result.success) throw new ValidationException();
 
     const { title, contents, files } = result.data;
     const notice = await db.notice.create({
@@ -51,6 +52,6 @@ export async function uploadNotice(formData: FormData) {
     revalidateTag(NOTICE_TAG);
     revalidateTag(NOTICE_COUNT_TAG);
   } catch (error) {
-    handleError(error);
+    return await handleError(error);
   }
 }

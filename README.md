@@ -17,11 +17,13 @@
 
 ## 마이그레이션
 
-[ ] Google Analytics 모니터링 추가
+[✅] Vercel Analytics 모니터링 추가
+[ ] Vercel Speed Insights 추가
 [ ] MongoDB 백업 및 로깅 => 유료 플랜
 [❎] Rate Limit -> 굳이..
 [❎] 아이피 차단 기능? -> 굳이..
-[ ] Vercel 배포 (stage, prod 구분) => 유료?
+[✅] Vercel 배포
+[ ] Vercel dev, prod branch 따로 배포
 [✅] Cloudflare R2 적용
 [✅] Error Handling
 [✅] 파일 업로드, 삭제 순서 고려 (like transaction)
