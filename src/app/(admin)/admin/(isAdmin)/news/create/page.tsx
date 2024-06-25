@@ -55,6 +55,7 @@ export default function CreateNewsPage() {
     if (photo) formData.append("photo", photo);
 
     const error = await uploadNews(formData);
+    console.log(error);
     if (error?.message) {
       toast.error(getErrorMessage(error));
       setIsLoading(false);
