@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import FileUploadException from "@/exceptions/FileUploadException";
+import GlobalException from "@/exceptions/GlobalException";
+import { getUploadUrl } from "@/libs/db-actions/file";
 import { cn, getErrorMessage } from "@/libs/utils";
 import { News } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -21,6 +24,8 @@ export default function UpdateNewsPage({
   const labelCss = "text-[0.8rem] lg:text-[0.9375rem] font-kr";
   const [previewImage, setPreviewImage] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const [uploadUrl, setUploadUrl] = useState<string>("");
+  const [fileKey, setFileKey] = useState("");
   const [news, setNews] = useState<News | null>(null);
   const [isFetching, setIsFetching] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -67,7 +72,10 @@ export default function UpdateNewsPage({
     const url = URL.createObjectURL(file);
     setPreviewImage(url);
     setPhoto(file);
-    setValue("photo", `ok`);
+    const [uploadUrl, fileKey] = await getUploadUrl(file.name, file.type);
+    setValue("photo", uploadUrl);
+    setUploadUrl(uploadUrl);
+    setFileKey(fileKey);
   };
 
   function handleChange(value: string) {
@@ -83,7 +91,26 @@ export default function UpdateNewsPage({
     if (data.title) formData.append("title", data.title);
     if (data.contents) formData.append("contents", data.contents);
     if (data.url) formData.append("url", data.url);
-    if (photo) formData.append("photo", photo);
+    if (photo) {
+      try {
+        const response = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": photo.type,
+          },
+          body: Buffer.from(await photo.arrayBuffer()),
+        });
+
+        if (!response.ok) {
+          throw new FileUploadException("파일 업로드 실패");
+        }
+      } catch (error) {
+        toast.error((error as GlobalException).message);
+      } finally {
+        setIsLoading(false);
+        formData.append("photo", fileKey);
+      }
+    }
 
     const error = await updateNewsWithId(formData);
     if (error?.message) {

@@ -6,7 +6,7 @@ import { NOTICE_TAG } from "@/libs/constants";
 import db from "@/libs/db";
 
 import ValidationException from "@/exceptions/ValidationException";
-import { deleteOneFile, uploadManyFiles } from "@/libs/db-actions/file";
+import { deleteOneFile } from "@/libs/db-actions/file";
 import handleError from "@/libs/error-handler";
 import { File as PrismaFileObject } from "@prisma/client";
 import { revalidateTag } from "next/cache";
@@ -31,11 +31,6 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     });
 
     if (!notice) throw new NotFoundException("공지사항 정보가 없습니다.");
-
-    if (data.files && data.files.length > 0) {
-      const fileKeyArr = await uploadManyFiles(data.files);
-      data.files = fileKeyArr as any;
-    }
 
     const result = updateNoticeSchema.safeParse(data);
     if (!result.success) throw new ValidationException();
@@ -69,10 +64,10 @@ export const updateNotice = async (noticeId: string, formData: FormData) => {
     if (files && files.length > 0) {
       await db.file.createMany({
         data: files.map(
-          (file) =>
+          (fileKey) =>
             ({
-              fileName: file.fileName,
-              fileKey: file.fileKey,
+              fileName: fileKey.split("_")[1],
+              fileKey,
               noticeId: noticeId,
             } as PrismaFileObject)
         ),

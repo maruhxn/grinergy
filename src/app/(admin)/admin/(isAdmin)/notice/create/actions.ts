@@ -3,7 +3,6 @@
 import ValidationException from "@/exceptions/ValidationException";
 import { NOTICE_COUNT_TAG, NOTICE_TAG } from "@/libs/constants";
 import db from "@/libs/db";
-import { uploadManyFiles } from "@/libs/db-actions/file";
 import handleError from "@/libs/error-handler";
 import { File as PrismaFileObject } from "@prisma/client";
 import { revalidateTag } from "next/cache";
@@ -16,11 +15,6 @@ export async function uploadNotice(formData: FormData) {
       title: formData.get("title"),
       contents: formData.get("contents"),
     };
-
-    if (data.files.length > 0) {
-      const fileKeyArr = await uploadManyFiles(data.files);
-      data.files = fileKeyArr as any;
-    }
 
     const result = noticeSchema.safeParse(data);
     if (!result.success) throw new ValidationException();
@@ -39,10 +33,10 @@ export async function uploadNotice(formData: FormData) {
     if (files && files.length > 0) {
       await db.file.createMany({
         data: files.map(
-          (file) =>
+          (fileKey) =>
             ({
-              fileName: file.fileName,
-              fileKey: file.fileKey,
+              fileName: fileKey.split("_")[1],
+              fileKey,
               noticeId: notice.id,
             } as PrismaFileObject)
         ),

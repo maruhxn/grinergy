@@ -1,14 +1,7 @@
 import { z } from "zod";
 
 export const noticeSchema = z.object({
-  files: z
-    .array(
-      z.object({
-        fileName: z.string(),
-        fileKey: z.string(),
-      })
-    )
-    .nullish(),
+  files: z.array(z.string()).nullish(),
   title: z
     .string({
       required_error: "제목은 필수입니다.",

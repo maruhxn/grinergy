@@ -4,7 +4,7 @@ import NotFoundException from "@/exceptions/NotFoundException";
 import ValidationException from "@/exceptions/ValidationException";
 import { NEWS_TAG } from "@/libs/constants";
 import db from "@/libs/db";
-import { deleteOneFile, uploadOneFile } from "@/libs/db-actions/file";
+import { deleteOneFile } from "@/libs/db-actions/file";
 import handleError from "@/libs/error-handler";
 import { revalidateTag } from "next/cache";
 import { updateNewsSchema } from "./schema";
@@ -33,11 +33,7 @@ export const updateNews = async (newsId: string, formData: FormData) => {
 
     if (!news) throw new NotFoundException("뉴스 정보가 없습니다.");
 
-    if (data.photo instanceof File) {
-      const fileKey = await uploadOneFile(data.photo);
-      data.photo = fileKey;
-      if (news.photo) await deleteOneFile(news.photo);
-    }
+    if (data.photo && news.photo) await deleteOneFile(news.photo);
 
     const result = updateNewsSchema.safeParse(data);
     if (!result.success) throw new ValidationException();

@@ -5,6 +5,7 @@ import { JSDOM } from "jsdom";
 import moment from "moment";
 import { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Notice Detail",
@@ -23,6 +24,8 @@ export default async function NoticeDetailPage({
       files: true,
     },
   });
+
+  if (!data) notFound();
 
   return (
     <div className="w-full lg:w-1/2 font-kr overflow-hidden mx-auto">

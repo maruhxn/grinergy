@@ -1,6 +1,9 @@
 "use client";
 
 import Editor from "@/components/Editor";
+import FileUploadException from "@/exceptions/FileUploadException";
+import GlobalException from "@/exceptions/GlobalException";
+import { getUploadUrl } from "@/libs/db-actions/file";
 import { cn, getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -10,9 +13,15 @@ import toast from "react-hot-toast";
 import { uploadNotice } from "./actions";
 import { CreateNoticeSchema, noticeSchema } from "./schema";
 
+export interface UploadFileData {
+  uploadUrl: string;
+  fileKey: string;
+}
+
 export default function CreateNoticePage() {
   const labelCss = "text-[0.8rem] lg:text-[0.9375rem] font-kr";
   const [uploadFiles, setUploadFiles] = useState<FileList | null>(null);
+  const [uploadFilesData, setUploadFilesData] = useState<UploadFileData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
@@ -30,12 +39,17 @@ export default function CreateNoticePage() {
     trigger("contents");
   }
 
-  function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const {
       target: { files },
     } = event;
     if (!files) return;
     setUploadFiles(files);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const [uploadUrl, fileKey] = await getUploadUrl(file.name, file.type);
+      setUploadFilesData((prev) => [...prev, { uploadUrl, fileKey }]);
+    }
   }
 
   const onSubmit = async (data: CreateNoticeSchema) => {
@@ -46,8 +60,27 @@ export default function CreateNoticePage() {
     formData.append("title", data.title);
     formData.append("contents", data.contents);
     if (uploadFiles) {
-      for (let i = 0; i < uploadFiles.length; i++) {
-        formData.append("files", uploadFiles[i]);
+      try {
+        for (let i = 0; i < uploadFiles.length; i++) {
+          const file = uploadFiles[i];
+          const response = await fetch(uploadFilesData[i].uploadUrl, {
+            method: "PUT",
+            headers: {
+              "Content-Type": file.type,
+            },
+            body: Buffer.from(await file.arrayBuffer()),
+          });
+
+          if (!response.ok) {
+            throw new FileUploadException("파일 업로드 실패");
+          }
+
+          formData.append("files", uploadFilesData[i].fileKey);
+        }
+      } catch (error) {
+        return toast.error((error as GlobalException).message);
+      } finally {
+        setIsLoading(false);
       }
     }
 

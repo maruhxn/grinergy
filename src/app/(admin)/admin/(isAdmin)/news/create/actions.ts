@@ -3,7 +3,6 @@
 import ValidationException from "@/exceptions/ValidationException";
 import { NEWS_COUNT_TAG, NEWS_TAG } from "@/libs/constants";
 import db from "@/libs/db";
-import { uploadOneFile } from "@/libs/db-actions/file";
 import handleError from "@/libs/error-handler";
 import { revalidateTag } from "next/cache";
 import { newsSchema } from "./schema";
@@ -16,11 +15,6 @@ export async function uploadNews(formData: FormData) {
       url: formData.get("url"),
       contents: formData.get("contents"),
     };
-
-    if (data.photo instanceof File) {
-      const fileKey = await uploadOneFile(data.photo);
-      data.photo = fileKey;
-    }
 
     const result = newsSchema.safeParse(data);
     if (!result.success) throw new ValidationException();

@@ -1,6 +1,9 @@
 "use client";
 
 import Editor from "@/components/Editor";
+import FileUploadException from "@/exceptions/FileUploadException";
+import GlobalException from "@/exceptions/GlobalException";
+import { getUploadUrl } from "@/libs/db-actions/file";
 import { cn, getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -14,7 +17,9 @@ export default function CreateNewsPage() {
   const labelCss = "text-[0.8rem] lg:text-[0.9375rem] font-kr";
   const [previewImage, setPreviewImage] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const [uploadUrl, setUploadUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [fileKey, setFileKey] = useState("");
   const router = useRouter();
 
   const {
@@ -36,7 +41,10 @@ export default function CreateNewsPage() {
     const url = URL.createObjectURL(file);
     setPreviewImage(url);
     setPhoto(file);
-    setValue("photo", "ok");
+    const [uploadUrl, fileKey] = await getUploadUrl(file.name, file.type);
+    setValue("photo", uploadUrl);
+    setUploadUrl(uploadUrl);
+    setFileKey(fileKey);
   };
 
   function handleChange(value: string) {
@@ -52,10 +60,30 @@ export default function CreateNewsPage() {
     formData.append("title", data.title);
     formData.append("contents", data.contents);
     formData.append("url", data.url);
-    if (photo) formData.append("photo", photo);
+
+    if (photo) {
+      try {
+        const response = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": photo.type,
+          },
+          body: Buffer.from(await photo.arrayBuffer()),
+        });
+
+        if (!response.ok) {
+          throw new FileUploadException("파일 업로드 실패");
+        }
+      } catch (error) {
+        toast.error((error as GlobalException).message);
+      } finally {
+        setIsLoading(false);
+        formData.append("photo", fileKey);
+      }
+    }
 
     const error = await uploadNews(formData);
-    console.log(error);
+
     if (error?.message) {
       toast.error(getErrorMessage(error));
       setIsLoading(false);
