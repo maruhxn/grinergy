@@ -3,6 +3,7 @@
 import Editor from "@/components/Editor";
 import FileUploadException from "@/exceptions/FileUploadException";
 import GlobalException from "@/exceptions/GlobalException";
+import useAbortController from "@/hooks/useAbortController";
 import { getUploadUrl } from "@/libs/db-actions/file";
 import { cn, getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +21,7 @@ export default function CreateNewsPage() {
   const [uploadUrl, setUploadUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fileKey, setFileKey] = useState("");
+  const { controller, timeoutId } = useAbortController();
   const router = useRouter();
 
   const {
@@ -69,12 +71,18 @@ export default function CreateNewsPage() {
             "Content-Type": photo.type,
           },
           body: Buffer.from(await photo.arrayBuffer()),
+          signal: controller.signal,
         });
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           throw new FileUploadException("파일 업로드 실패");
         }
       } catch (error) {
+        console.error(error);
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return toast.error("시간 초과: 파일의 용량이 너무 큽니다.");
+        }
         toast.error((error as GlobalException).message);
       } finally {
         setIsLoading(false);

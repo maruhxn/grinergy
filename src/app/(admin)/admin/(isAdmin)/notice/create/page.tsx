@@ -3,6 +3,7 @@
 import Editor from "@/components/Editor";
 import FileUploadException from "@/exceptions/FileUploadException";
 import GlobalException from "@/exceptions/GlobalException";
+import useAbortController from "@/hooks/useAbortController";
 import { getUploadUrl } from "@/libs/db-actions/file";
 import { cn, getErrorMessage } from "@/libs/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +24,8 @@ export default function CreateNoticePage() {
   const [uploadFiles, setUploadFiles] = useState<FileList | null>(null);
   const [uploadFilesData, setUploadFilesData] = useState<UploadFileData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { controller, timeoutId } = useAbortController();
+
   const {
     register,
     handleSubmit,
@@ -59,6 +62,7 @@ export default function CreateNoticePage() {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("contents", data.contents);
+
     if (uploadFiles) {
       try {
         for (let i = 0; i < uploadFiles.length; i++) {
@@ -69,7 +73,9 @@ export default function CreateNoticePage() {
               "Content-Type": file.type,
             },
             body: Buffer.from(await file.arrayBuffer()),
+            signal: controller.signal,
           });
+          clearTimeout(timeoutId);
 
           if (!response.ok) {
             throw new FileUploadException("파일 업로드 실패");
@@ -78,6 +84,10 @@ export default function CreateNoticePage() {
           formData.append("files", uploadFilesData[i].fileKey);
         }
       } catch (error) {
+        console.error(error);
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return toast.error("시간 초과: 파일의 용량이 너무 큽니다.");
+        }
         return toast.error((error as GlobalException).message);
       } finally {
         setIsLoading(false);
